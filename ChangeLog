@@ -1,0 +1,39 @@
+2006-08-23 Ramana Enaganti <ramana@intraperson.com>
+
+* autohome.c: added new suboptions nohomecheck, owner
+* autogroup.c added new suboption group
+* automisc.c added new suboption fastmode
+
+2006-10-21 Ramana Enaganti <ramana@intraperson.com>
+
+* back.c: Split this file into smaller files:
+		backup.c backup_queue.c backup_child.c
+		backup_pid.c backup_fork.c.
+
+		Moreover backup architecture changed so that code becomes
+		simple to maintain and test.
+
+* lockfile.c: Dynamic rehashing added.
+* multipath.c Dynamic rehashing added.
+* workon.c: Dynamic rehashing added.
+		Memory accessing from outside critical section fixed.
+* backup.c: -L option added.
+		This limits the time in seconds which any backup process
+		can not exceed.
+
+2006-11-6 Ramana Enaganti <ramana@intraperson.com>
+
+* backup_pid.c: Memory leak fixed.
+
+2006-11-24 Ramana Enaganti <ramana@intraperson.com>
+
+* backup.c, backup_child.c: fixed shutdown related bugs
+* autodir.c: More compatible with new autofsv5 module
+* backup_queue.c nono sleep introduced between backup forks
+
+2007-4-16 Ramana Enaganti <ramana@intraperson.com>
+
+* autohome.c, autogroup.c: rename added for stale accounts.
+		Considered bug fix.
+* autogroup.c: missing groupid initialization. fixed.
+* time_mono.c: Initialization changed to work with slackware.

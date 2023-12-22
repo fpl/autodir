@@ -1,0 +1,102 @@
+Mon Apr 16 08:48:29 IST 2007	Released 0.99.9 version. Some minor bug fixes.
+
+Fri Nov 24 15:24:15 IST 2006	Released 0.99.8 version. Problems with new
+				autofs4 module which supports protocol 5 fixed. 
+
+Mon Nov  6 08:44:47 IST 2006	Released 0.99.7 version. Some bugs fixed.
+
+Mon Oct 23 08:28:45 IST 2006	Released 0.99.6 version. Backup code completely
+				rewritten.
+
+Wed Aug 23 08:11:56 IST 2006	Released 0.99.4 version. More suboptions
+				added to modules to make them more flexible.
+
+Mon Feb 20 08:44:11 IST 2006    Released 0.99.3 version. Autodir switched to 
+                                monotonic time where ever real time not
+                                required.  Shutdown sequence changed and
+                                thread objects initialization improved.
+
+Sun Jan 29 19:23:12 IST 2006	Released 0.99.1 version. Module version
+                                checking added. Missing compile time check for 
+                                libcap added and other autoconf bug fixes.
+
+Fri Dec  9 06:56:08 IST 2005	Released 0.99.0 version. Fastmode sub option
+				added. New option -N and other improvements.
+
+Sat Oct 29 09:48:28 IST 2005	Released 0.92.2 version. Expiry made much more
+				aggressive with multiple threads doing expiry
+				on demand.
+
+Tue Oct 11 10:19:41 IST 2005	Released 0.96.1 version. New -V option
+                                introduced for verbose logging and other
+                                improvements and bug fixes.
+
+Wed Aug 24 10:02:23 IST 2005	Released 0.96.0 version. Lots of internal code
+				changes. New thread caching and reuse added.
+				Logging revisited and enhanced. More bug fixes
+				and code improvements.
+
+Fri Jul 29 09:07:36 IST 2005	Released 0.95.2 version. Sub-optoins nocheck,
+				noskelcheck, owner, group introduced.
+
+Sun Jul 24 14:57:47 IST 2005	Released 0.95.1 version. Multi path feature
+                                now officially announced.
+
+Fri Jun 17 08:23:36 IST 2005	Released 0.94.4 version. Code and performance
+				improvements.
+
+Sun Jun 12 21:01:07 IST 2005	Released 0.94.2 version. Autodir now uses
+				shared locks instead of exclusive locks.
+
+Thu May 5 22:04:17 IST 2005	Released 0.94.0 version. Autodir now supports
+				backup locks which opens up many more
+                                possibilities.
+
+Mon Apr 18 09:12:53 IST 2005	Released 0.93.2 version. New automisc module
+				added which creates any directory that is
+                                accessed.  Also errors with kernel capability
+                                support is handled gracefully with this
+                                release.
+
+Wed Jan 26 10:53:29 IST 2005	Released 0.93.1 version. Code optimized in
+				autofs events handling main section.
+
+Fri Jan 7 14:19:31 IST 2005	Released 0.93.0 version. Moved from old
+				autofs3 module to new autofs4 kernel module.
+				Now Autodir supports only autofs4 protocol as
+				this protocol is much more robust than
+                                previous one.
+
+Thu Dec 2 20:49:17 IST 2004	Released 0.92.1 version. POSIX capabilities
+				revisited. Few more unnecessary capabilities
+				removed. Now mode sub option added to autohome
+				and autogroup modules. With autogroup module,
+				nosetgid sub option no longer supported as it
+				is replaced by mode.
+
+Sun Nov 7 08:39:23 IST 2004	Released 0.92.0 version. Performance
+				improvements. And also now, more than one
+				backup program can be launched at a time
+                                rather than one per second as in previous
+                                versions.
+
+Thu Nov 4 09:58:33 IST 2004	Released 0.91.5 version. Fixed security
+                                feature, which avoids /etc/skel/ if it has
+                                more than three hard links, turned out to be
+                                a bug.  Thanks to Mike and Andreas Sandberg.
+
+Mon Nov 1 09:47:29 IST 2004	Released 0.91.4 version. Bug causing random
+				hangups on virtual directories fixed.
+
+Fri Oct 29 11:52:53 IST 2004	Released 0.91.3 version. Chdir system call
+				not used in thread safe way. Fixed.
+
+Mon Oct 18 10:09:13 IST 2004	Released 0.91.2 version. Minor bug fixes.
+
+Mon Oct 4 16:46:48 IST 2004	Released 0.91.1 version. Bug fixes 1030300,
+				1035032 and 1038828.
+
+Sun Sep 19 20:35:34 IST 2004	Released 0.91 version. Code improvements and
+				heavy testing.
+
+Wed Jun 16 20:30:24 IST 2004	Released 0.28 version. Initial release.

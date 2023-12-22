@@ -1,0 +1,15 @@
+Venkat Ramana Enaganti <ramana@intraperson.com>
+
+Autodir written taking ideas from orginal autofs package. As such
+there might be some code directly taken from autofs package.
+
+Other contributors
+------------------
+
+Frank Benkstein <frank@benkstein.net>
+    Contributed nohomecheck patch.
+Piotr Wadas <pwadas@jewish.org.pl>
+    Rename feature for stale accounts.
+    autogroup init bug fix patch.
+Randy Rucker <randy.rucker@gmail.com>
+    Monotonic time bug fix for slackware.

@@ -1,0 +1,97 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+#
+
+#
+# This is not supposed to be 'widely' portable across all unices 
+# as this package depends on specific features provided
+# by autofs linux kernel module.  -- Author
+#
+
+AC_PREREQ(2.57)
+AC_INIT([Autodir], [0.99.9])
+AC_CONFIG_SRCDIR([src/autodir.c])
+AM_INIT_AUTOMAKE
+
+AC_PREFIX_DEFAULT([/usr])
+
+# Checks for programs.
+
+AC_PROG_CC
+AC_LIBTOOL_DLOPEN
+AC_PROG_LIBTOOL
+
+if test "$GCC" = yes
+then
+
+	CFLAGS="-O2 -Wall -Wwrite-strings \
+		-Wpointer-arith -Wcast-qual -Wcast-align \
+		-Wstrict-prototypes -Wmissing-prototypes \
+		-Wnested-externs -Winline -Wshadow"
+fi
+
+# Checks for libraries.
+
+LIBS_SAVE=$LIBS
+
+AC_CHECK_LIB([dl],[dlopen],,
+		[AC_MSG_ERROR([[libdl not found]])])
+
+AC_CHECK_LIB([ltdl],[lt_dlinit],,
+		[AC_MSG_ERROR([[libltdl not found]])])
+
+AC_CHECK_LIB([pthread],[pthread_create],,
+		[AC_MSG_ERROR([[libpthread not found]])])
+
+AC_CHECK_LIB([cap],[cap_set_proc],,
+		[AC_MSG_ERROR([[libcap not found]])])
+
+AC_CHECK_LIB([rt], [clock_gettime],,
+                [AC_MSG_ERROR([[librt not found]])])
+
+LIBS=$LIBS_SAVE
+
+# Checks for header files.
+AC_HEADER_STDC
+
+AC_CHECK_HEADERS([ errno.h \
+		sys/poll.h \
+		sys/stat.h \
+		sys/types.h \
+		dlfcn.h \
+		signal.h \
+		dirent.h \
+		pthread.h \
+		fcntl.h \
+		limits.h \
+		malloc.h \
+		stdlib.h \
+		string.h \
+		sys/ioctl.h \
+		sys/mount.h \
+		sys/time.h \
+		syslog.h \
+		unistd.h \
+		grp.h \
+		stdarg.h \
+		pwd.h ],
+	[],[AC_MSG_ERROR([[required header not found]])])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+AC_CHECK_FUNCS([vsyslog \
+		getsubopt \
+		getopt \
+		sigwait \
+		poll \
+		gethostname \
+		localtime_r \
+		memchr \
+		memmove \
+		stpcpy],
+		[], [AC_MSG_ERROR([[required function not found]])])
+
+AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile])
+AM_CONFIG_HEADER([src/config.h])
+AC_OUTPUT
