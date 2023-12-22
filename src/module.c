@@ -20,6 +20,8 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 */
 
+#define _MODULE_C_
+
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
@@ -47,11 +49,6 @@ static struct {
 } module;
 
 static module_info *modinfo;
-
-module_info *(*mod_init)( char *, const char * );
-void (*mod_dir)( char *, int , const char * );
-int (*mod_dowork)( const char *, const char *, char *, int );
-void (*mod_clean)( void );
 
 /***************************************************
   ltdl is not made thread safe because,

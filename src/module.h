@@ -31,10 +31,17 @@ typedef struct module_info {
 /*last three digits are for minor and remaining for major*/
 #define MODULE_PROTOCOL_SUPPORTED (1001)
 
+#ifdef _MODULE_C_
 module_info *(*mod_init)( char *, const char * );
 void (*mod_dir)( char *, int , const char * );
 int (*mod_dowork)( const char *, const char *, char *, int );
 void (*mod_clean)( void );
+#else
+extern module_info *(*mod_init)( char *, const char * );
+extern void (*mod_dir)( char *, int , const char * );
+extern int (*mod_dowork)( const char *, const char *, char *, int );
+extern void (*mod_clean)( void );
+#endif
 
 void module_load(char *apath);
 void module_option_modpath(char ch, char *arg, int valid);
