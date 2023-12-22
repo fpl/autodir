@@ -98,7 +98,6 @@ void module_clean( void );
 
 
 
-int getsubopt (char **, const char* const *, char **);
 
 module_info autogroup_info = { MODULE_NAME, MODULE_PROTOCOL };
 
@@ -228,16 +227,16 @@ static void option_process( char *subopt )
 		END
 	};
 
-	const char *sos[] = {
-		[ OPTION_REALPATH_IDX ] = SUB_OPTION_REALPATH,
-		[ OPTION_LEVEL_IDX    ] = SUB_OPTION_LEVEL,
-		[ OPTION_NOPRIV_IDX   ] = SUB_OPTION_NOPRIV,
-		[ OPTION_MODE_IDX     ] = SUB_OPTION_MODE,
-		[ OPTION_NOCHECK_IDX  ] = SUB_OPTION_NOCHECK,
-		[ OPTION_OWNER_IDX    ]	= SUB_OPTION_OWNER,
-		[ OPTION_GROUP_IDX    ]	= SUB_OPTION_GROUP,
-		[ OPTION_FASTMODE_IDX ] = SUB_OPTION_FASTMODE,
-		[ OPTION_RENAMEDIR_IDX ] = SUB_OPTION_RENAMEDIR,
+	char *const sos[] = {
+		[ OPTION_REALPATH_IDX ] = (char*const)SUB_OPTION_REALPATH,
+		[ OPTION_LEVEL_IDX    ] = (char*const)SUB_OPTION_LEVEL,
+		[ OPTION_NOPRIV_IDX   ] = (char*const)SUB_OPTION_NOPRIV,
+		[ OPTION_MODE_IDX     ] = (char*const)SUB_OPTION_MODE,
+		[ OPTION_NOCHECK_IDX  ] = (char*const)SUB_OPTION_NOCHECK,
+		[ OPTION_OWNER_IDX    ]	= (char*const)SUB_OPTION_OWNER,
+		[ OPTION_GROUP_IDX    ]	= (char*const)SUB_OPTION_GROUP,
+		[ OPTION_FASTMODE_IDX ] = (char*const)SUB_OPTION_FASTMODE,
+		[ OPTION_RENAMEDIR_IDX ] = (char*const)SUB_OPTION_RENAMEDIR,
 		[ END                 ] = NULL
 	};
 

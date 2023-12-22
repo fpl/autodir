@@ -119,7 +119,6 @@ module_info autohome_info = { MODULE_NAME, MODULE_PROTOCOL };
 #define READ_BUF_SIZE			8000
 #define SKEL_FILE_MAX_COPY		(1024*1024) /*1MB*/
 
-int getsubopt (char **, const char* const *, char **);
 
 /*module sub-option values*/
 static struct {
@@ -259,19 +258,19 @@ static void option_process( char *subopt )
 		END
 	};
 
-	const char *sos[] = {
-		[ OPTION_REALPATH_IDX ] = SUB_OPTION_REALPATH,
-		[ OPTION_SKEL_IDX     ] = SUB_OPTION_SKEL,
-		[ OPTION_NOSKEL_IDX   ] = SUB_OPTION_NOSEKL,
-		[ OPTION_LEVEL_IDX    ] = SUB_OPTION_LEVEL,
-		[ OPTION_MODE_IDX     ] = SUB_OPTION_MODE,
-		[ OPTION_NOCHECK_IDX  ] = SUB_OPTION_NOCHECK,
-		[ OPTION_NOSKELCHECK_IDX ] = SUB_OPTION_NOSKELCHECK,
-		[ OPTION_OWNER_IDX    ]	= SUB_OPTION_OWNER,
-		[ OPTION_GROUP_IDX    ]	= SUB_OPTION_GROUP,
-		[ OPTION_FASTMODE_IDX ] = SUB_OPTION_FASTMODE,
- 		[ OPTION_NOHOMECHECK_IDX ] = SUB_OPTION_NOHOMECHECK,
-		[ OPTION_RENAMEDIR_IDX ] = SUB_OPTION_RENAMEDIR,
+	char *const sos[] = {
+		[ OPTION_REALPATH_IDX ] = (char*const)SUB_OPTION_REALPATH,
+		[ OPTION_SKEL_IDX     ] = (char*const)SUB_OPTION_SKEL,
+		[ OPTION_NOSKEL_IDX   ] = (char*const)SUB_OPTION_NOSEKL,
+		[ OPTION_LEVEL_IDX    ] = (char*const)SUB_OPTION_LEVEL,
+		[ OPTION_MODE_IDX     ] = (char*const)SUB_OPTION_MODE,
+		[ OPTION_NOCHECK_IDX  ] = (char*const)SUB_OPTION_NOCHECK,
+		[ OPTION_NOSKELCHECK_IDX ] = (char*const)SUB_OPTION_NOSKELCHECK,
+		[ OPTION_OWNER_IDX    ]	= (char*const)SUB_OPTION_OWNER,
+		[ OPTION_GROUP_IDX    ]	= (char*const)SUB_OPTION_GROUP,
+		[ OPTION_FASTMODE_IDX ] = (char*const)SUB_OPTION_FASTMODE,
+ 		[ OPTION_NOHOMECHECK_IDX ] = (char*const)SUB_OPTION_NOHOMECHECK,
+		[ OPTION_RENAMEDIR_IDX ] = (char*const)SUB_OPTION_RENAMEDIR,
 		[ END                 ] = NULL
 	};
 

@@ -95,7 +95,6 @@ void module_clean( void );
 
 
 
-int getsubopt (char **, const char* const *, char **);
 
 /*module option values*/
 static struct {
@@ -217,7 +216,7 @@ static void option_process( char *subopt )
 		END
 	};
 
-	const char *sos[] = {
+	char *const sos[] = {
 		[ OPTION_REALPATH_IDX ] = SUB_OPTION_REALPATH,
 		[ OPTION_LEVEL_IDX    ] = SUB_OPTION_LEVEL,
 		[ OPTION_USER_IDX     ] = SUB_OPTION_USER,
