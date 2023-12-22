@@ -646,7 +646,7 @@ static int copy_skel_dir( const char *src, /*source directory*/
 			else
 			{
 				copy_skel_dir( sdent, ddent, &sdent_st, uid, gid );
-				chown( ddent, uid, gid );
+				if ( chown( ddent, uid, gid ) ) return 0;
 			}
 		}
 		else msglog( MSG_WARNING, "copy_skel_dir: %s is not " \
