@@ -30,7 +30,7 @@ LT_INIT([dlopen])
 if test "$GCC" = yes
 then
 	CFLAGS="-O2 -Wall -Wwrite-strings \
-		-Wpointer-arith -Wcast-qual -Wcast-align \
+		-Wpointer-arith -Wcast-align \
 		-Wstrict-prototypes -Wmissing-prototypes \
 		-Wnested-externs -Winline -Wshadow"
 fi

@@ -1,5 +1,7 @@
 *.o
+*.lo
 *.a
+*.la
 *.so
 *~
 autom4te.cache
@@ -7,3 +9,9 @@ config.h
 config.cache
 config.status
 config.log
+.deps
+.libs
+stamp-h1
+Makefile
+libtool
+autodir
