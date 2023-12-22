@@ -258,19 +258,19 @@ static void option_process( char *subopt )
 		END
 	};
 
-	char *const sos[] = {
-		[ OPTION_REALPATH_IDX ] = (char*const)SUB_OPTION_REALPATH,
-		[ OPTION_SKEL_IDX     ] = (char*const)SUB_OPTION_SKEL,
-		[ OPTION_NOSKEL_IDX   ] = (char*const)SUB_OPTION_NOSEKL,
-		[ OPTION_LEVEL_IDX    ] = (char*const)SUB_OPTION_LEVEL,
-		[ OPTION_MODE_IDX     ] = (char*const)SUB_OPTION_MODE,
-		[ OPTION_NOCHECK_IDX  ] = (char*const)SUB_OPTION_NOCHECK,
-		[ OPTION_NOSKELCHECK_IDX ] = (char*const)SUB_OPTION_NOSKELCHECK,
-		[ OPTION_OWNER_IDX    ]	= (char*const)SUB_OPTION_OWNER,
-		[ OPTION_GROUP_IDX    ]	= (char*const)SUB_OPTION_GROUP,
-		[ OPTION_FASTMODE_IDX ] = (char*const)SUB_OPTION_FASTMODE,
- 		[ OPTION_NOHOMECHECK_IDX ] = (char*const)SUB_OPTION_NOHOMECHECK,
-		[ OPTION_RENAMEDIR_IDX ] = (char*const)SUB_OPTION_RENAMEDIR,
+	const char *sos[] = {
+		[ OPTION_REALPATH_IDX ] = SUB_OPTION_REALPATH,
+		[ OPTION_SKEL_IDX     ] = SUB_OPTION_SKEL,
+		[ OPTION_NOSKEL_IDX   ] = SUB_OPTION_NOSEKL,
+		[ OPTION_LEVEL_IDX    ] = SUB_OPTION_LEVEL,
+		[ OPTION_MODE_IDX     ] = SUB_OPTION_MODE,
+		[ OPTION_NOCHECK_IDX  ] = SUB_OPTION_NOCHECK,
+		[ OPTION_NOSKELCHECK_IDX ] = SUB_OPTION_NOSKELCHECK,
+		[ OPTION_OWNER_IDX    ]	= SUB_OPTION_OWNER,
+		[ OPTION_GROUP_IDX    ]	= SUB_OPTION_GROUP,
+		[ OPTION_FASTMODE_IDX ] = SUB_OPTION_FASTMODE,
+ 		[ OPTION_NOHOMECHECK_IDX ] = SUB_OPTION_NOHOMECHECK,
+		[ OPTION_RENAMEDIR_IDX ] = SUB_OPTION_RENAMEDIR,
 		[ END                 ] = NULL
 	};
 
@@ -279,7 +279,7 @@ static void option_process( char *subopt )
 
 	while( *subopt != 0 )
 	{
-		switch( getsubopt( &subopt, sos, &value ) )
+		switch( getsubopt( &subopt, (char* const *restrict)sos, &value ) )
 		{
 			case OPTION_REALPATH_IDX:
 				string_n_copy( ah_conf.realpath, 

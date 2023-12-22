@@ -216,7 +216,7 @@ static void option_process( char *subopt )
 		END
 	};
 
-	char *const sos[] = {
+	const char *sos[] = {
 		[ OPTION_REALPATH_IDX ] = SUB_OPTION_REALPATH,
 		[ OPTION_LEVEL_IDX    ] = SUB_OPTION_LEVEL,
 		[ OPTION_USER_IDX     ] = SUB_OPTION_USER,
@@ -232,7 +232,7 @@ static void option_process( char *subopt )
 
 	while( *subopt != 0 )
 	{
-		switch( getsubopt( &subopt, sos, &value ) )
+		switch( getsubopt( &subopt, (char* const *restrict)sos, &value ) )
 		{
 			case OPTION_REALPATH_IDX:
 				string_n_copy( am_conf.realpath, 

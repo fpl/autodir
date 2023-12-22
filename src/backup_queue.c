@@ -429,6 +429,7 @@ static void *queue_watch_thread( void *x )
 		if( BQ.bchain )
 			bchain_process();
 	}
+    return x;
 }
 
 void backup_queue_add( const char *name, const char *path )
