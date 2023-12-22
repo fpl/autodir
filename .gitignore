@@ -1,0 +1,9 @@
+*.o
+*.a
+*.so
+*~
+autom4te.cache
+config.h
+config.cache
+config.status
+config.log

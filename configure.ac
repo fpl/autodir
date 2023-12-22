@@ -8,8 +8,15 @@
 # by autofs linux kernel module.  -- Author
 #
 
-AC_PREREQ(2.57)
-AC_INIT([Autodir], [0.99.9])
+AC_PREREQ([2.71])
+
+# Move auxiliary files in their own dir to avoid polluting the 
+# base dir with autotools-specific files.
+
+AC_CONFIG_AUX_DIR(autotools)
+AC_CONFIG_MACRO_DIR(autotools)
+
+AC_INIT([Autodir],[1.0.0])
 AC_CONFIG_SRCDIR([src/autodir.c])
 AM_INIT_AUTOMAKE
 
@@ -18,12 +25,10 @@ AC_PREFIX_DEFAULT([/usr])
 # Checks for programs.
 
 AC_PROG_CC
-AC_LIBTOOL_DLOPEN
-AC_PROG_LIBTOOL
+LT_INIT([dlopen])
 
 if test "$GCC" = yes
 then
-
 	CFLAGS="-O2 -Wall -Wwrite-strings \
 		-Wpointer-arith -Wcast-qual -Wcast-align \
 		-Wstrict-prototypes -Wmissing-prototypes \
@@ -51,9 +56,12 @@ AC_CHECK_LIB([rt], [clock_gettime],,
 
 LIBS=$LIBS_SAVE
 
-# Checks for header files.
-AC_HEADER_STDC
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
 
+# Checks for header files.
 AC_CHECK_HEADERS([ errno.h \
 		sys/poll.h \
 		sys/stat.h \
@@ -93,5 +101,5 @@ AC_CHECK_FUNCS([vsyslog \
 		[], [AC_MSG_ERROR([[required function not found]])])
 
 AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile])
-AM_CONFIG_HEADER([src/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 AC_OUTPUT
