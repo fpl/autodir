@@ -22,6 +22,14 @@ AM_INIT_AUTOMAKE
 
 AC_PREFIX_DEFAULT([/usr])
 
+
+INSTALL="$srcdir/scripts/shtool install -c"
+ECHO="$srcdir/scripts/shtool echo -e"
+MKDIR="$srcdir/scripts/shtool mkdir -p"
+AC_SUBST(INSTALL)
+AC_SUBST(ECHO)
+AC_SUBST(MKDIR)
+
 # Checks for programs.
 
 AC_PROG_CC
