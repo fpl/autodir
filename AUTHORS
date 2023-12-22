@@ -1,11 +1,16 @@
-Venkat Ramana Enaganti <ramana@intraperson.com>
+Francesco Paolo Lovergine <francesco@debian.org> has been the maintainer for Debian after 2006
+and contributed with some patches to the upstream code later and the whole support for init/systemd.
 
-Autodir written taking ideas from orginal autofs package. As such
+Starting from 2023, he also revamped the code base to keep it updated and relevant.
+
+Autodir has been written taking ideas from orginal autofs package. As such
 there might be some code directly taken from autofs package.
 
 Other contributors
 ------------------
 
+Venkat Ramana Enaganti <ramana@intraperson.com>
+    The main author from 2004. He stepped down in 2007.
 Frank Benkstein <frank@benkstein.net>
     Contributed nohomecheck patch.
 Piotr Wadas <pwadas@jewish.org.pl>

@@ -1,5 +1,5 @@
 
-Autodir is for creating directories transparently.
+Autodir is a modular daemon for creating directories transparently, based on autofs.
 
 For more information consult online docs at
 https://tldp.org/HOWTO/html_single/Autodir-HOWTO/index.html
