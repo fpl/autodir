@@ -2,6 +2,7 @@
 /*
 
 Copyright (C) (2004 - 2006) (Venkata Ramana Enaganti) <ramana@intraperson.com>
+Copyright (C) 2007 - 2023 (Francesco Paolo Lovergine) <frankie@debian.org>
 
 This program is free software; you can redistribute it and/or 
 modify it under the terms of the GNU General Public License 

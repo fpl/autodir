@@ -3,6 +3,8 @@
 * Moved code to github.
 * Updated with latest general patches from Debian.
 * Updated documents.
+* Get rid of a series of modern compiler warnings.
+* Updated for modern autotools.
 
 2006-08-23 Ramana Enaganti <ramana@intraperson.com>
 
