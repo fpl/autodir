@@ -185,7 +185,6 @@ static Lentry* lockfile_add2hash( const char *name,
 				int *exist )
 {
 	unsigned int hash;
-	int key;
 	Lentry *ent, **dptr;
 
 	*exist = 0;
@@ -199,7 +198,6 @@ static Lentry* lockfile_add2hash( const char *name,
 	}
 
 	hash = string_hash( name );
-	key = lentry_key( hash );
 
 	string_n_copy( ent->name, name, sizeof(ent->name) );
 	string_n_copy( ent->path, path, sizeof(ent->path) );

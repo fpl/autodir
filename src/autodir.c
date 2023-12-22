@@ -194,7 +194,7 @@ static void mount_autodir( char *path, pid_t pgrp,
 {
 	int pipefd[ 2 ];
 	char options[ 128 ];
-	char our_name[ 128 ];
+	char our_name[ PATH_MAX+1 ];
 	char dot_path[ PATH_MAX+1 ];
 	struct stat st;
   
@@ -300,7 +300,6 @@ static void missing_exit( char *mname, char *name, autofs_wqt_t wqt, int result 
 /*missing directory handling for autofs mounted directory*/
 static void handle_missing( Packet *pkt )
 {
-	int len;
 	char mname[ NAME_MAX+1 ]; /*origial requested directory.
 					could be multi path also*/
 	char *name = mname; /*requested autofs directory after
@@ -325,7 +324,6 @@ static void handle_missing( Packet *pkt )
 	/*copy packet info to local variables
 	  so that it can be freed immediately*/
 	string_n_copy( mname, pmis->name, sizeof(mname) );
-	len = pmis->len;
 	packet_free( pkt );
 
 	if( self.stop )
@@ -429,7 +427,7 @@ static void handle_missing( Packet *pkt )
 
 static void handle_expire( Packet *pkt )
 {
-	int len, r;
+	int r;
 	char name[ NAME_MAX+1 ], *n;
 	char path[ PATH_MAX+1 ];
 	struct autofs_packet_expire_multi *exppkt;
@@ -448,7 +446,6 @@ static void handle_expire( Packet *pkt )
 	}
 
 	string_n_copy( name, exppkt->name, sizeof(name) );
-	len = exppkt->len;
 	packet_free( pkt );
 
 	/*unsafe data or black magic? replace*/
