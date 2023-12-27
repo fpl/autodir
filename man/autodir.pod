@@ -144,9 +144,9 @@ The real base directory to use for all users' homes.
 =item B<level=>I<number>
 
 The real directory organizaton level. Autohome creates a sub-tree that uses the
-first 1,2,3,... initial letters of the usernames to optimize access times in case of
+first 1 or 2 initial letters of the usernames to optimize access times in case of
 a database of thousands of users. For instance, the C<username> home directory will
-be created under C</real/path/use/us/u> if I<level>=3 or under C</real/path> if
+be created under C</real/path/u/us/> if I<level>=2 or under C</real/path> if
 I<level>=0. Default level is 2.
 
 =item B<skel=>I<path>
