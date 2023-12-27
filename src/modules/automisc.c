@@ -80,7 +80,7 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #define DFLT_AUTOMISC_REALPATH		"/" MODULE_NAME
 #define DFLT_AUTOMISC_LEVEL		2
 #define DFLT_AUTOMISC_USER		"nobody"
-#define DFLT_AUTOMISC_GROUP		"nobody"
+#define DFLT_AUTOMISC_GROUP		"nogroup"
 #define DFLT_AUTOMISC_MODE		( S_IRWXU | S_IRWXG )
 
 

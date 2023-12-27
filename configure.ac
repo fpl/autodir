@@ -16,12 +16,22 @@ AC_PREREQ([2.71])
 AC_CONFIG_AUX_DIR(autotools)
 AC_CONFIG_MACRO_DIR(autotools)
 
-AC_INIT([Autodir],[1.0.0])
+m4_define([autodir_major], 1)
+m4_define([autodir_minor], 0)
+m4_define([autodir_micro], 0)
+m4_define([autodir_version],[autodir_major.autodir_minor.autodir_micro])
+m4_define([autodir_name], [autodir])
+
+AC_INIT([Autodir],autodir_version,[frankie@debian.org],autodir_name,[https://github.com/fpl/autodir/])
 AC_CONFIG_SRCDIR([src/autodir.c])
 AM_INIT_AUTOMAKE
 
 AC_PREFIX_DEFAULT([/usr])
 
+PACKAGE=autodir_name
+VERSION=autodir_version
+AC_SUBST(PACKAGE)
+AC_SUBST(VERSION)
 
 INSTALL="$srcdir/scripts/shtool install -c"
 ECHO="$srcdir/scripts/shtool echo -e"
@@ -34,14 +44,6 @@ AC_SUBST(MKDIR)
 
 AC_PROG_CC
 LT_INIT([dlopen])
-
-if test "$GCC" = yes
-then
-	CFLAGS="-O2 -Wall -Wwrite-strings \
-		-Wpointer-arith -Wcast-align \
-		-Wstrict-prototypes -Wmissing-prototypes \
-		-Wnested-externs -Winline -Wshadow"
-fi
 
 # Checks for libraries.
 
@@ -108,6 +110,7 @@ AC_CHECK_FUNCS([vsyslog \
 		stpcpy],
 		[], [AC_MSG_ERROR([[required function not found]])])
 
-AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile man/Makefile])
 AC_CONFIG_HEADERS([src/config.h])
+
 AC_OUTPUT

@@ -1,10 +1,11 @@
-2023-12-22 Francesco Paolo Lovergine <frankie@debian.org>
+2023-12-27 Francesco Paolo Lovergine <frankie@debian.org>
 
 * Moved code to github.
 * Updated with latest general patches from Debian.
 * Updated documents.
 * Get rid of a series of modern compiler warnings.
 * Updated for modern autotools.
+* Added manpage created in form of a POD file.
 
 2006-08-23 Ramana Enaganti <ramana@intraperson.com>
 
