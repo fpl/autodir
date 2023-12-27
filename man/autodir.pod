@@ -30,6 +30,7 @@ The virtual mount point is managed via the kernel B<autofs> module, so every use
 directory is monted and unmounted dinamically after a certain lapse of time of inactivity.
 After unmount, B<autodir> can also optionally run a backup program for the just unmounted
 directory. 
+
 =head1 OPTIONS
 
 Autodir accepts a series of common options and a certain number of sub-options for
