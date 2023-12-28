@@ -1,0 +1,73 @@
+# Defaults for autodir initscript sourced by /etc/init.d/autodir
+# installed at /etc/default/autodir by the maintainer scripts
+
+# Master system-wide autodir switches. The initscript
+# will not run one or both if they are not set to yes.
+RUN_AUTOHOME="no"
+RUN_AUTOGROUP="no"
+
+# Where (virtual) home/group directories are supposed to be?
+# Visible to applications
+AUTOHOME_HOME=/home
+AUTOGROUP_HOME=/group
+
+# How long to wait in seconds
+# before it is assumed home directory
+# is inactive and unmounted.
+#
+# Servers like IMAP/POP access home directories every 10min 
+# in most configurations -- client side default mail check duraion.
+# Therefore it is beter to make it 11min in this situation.
+#
+# If your site has different requirements, change according to that.
+AUTOHOME_TIMEOUT=660
+
+# How long to wait in seconds
+# before it is assumed home directory
+# is inactive and unmounted.
+AUTOGROUP_TIMEOUT=300
+
+# Authome module paths
+AUTOHOME_MODULE="/usr/lib/autodir/autohome.so"
+AUTOGROUP_MODULE="/usr/lib/autodir/autogroup.so"
+
+# realpath => path where real home directories should reside
+# level    => Default value is ok for almost all sites. See Autodir-HOWTO.
+# skel     => Location of skel files. absolute path is expected
+# noskel   => Don not copy skel files to home directories
+AUTOHOME_OPTIONS="realpath=/autohome,level=2,skel=/etc/skel"
+
+# realpath => path where real group directories should reside.
+# level    => Default value is ok for almost all sites. See Autodir-HOWTO.
+# nosetgid => Default is to setgid the group directory created.
+# nopriv   => Default is to create group directory for every kind of group. 
+#	      If your site has user private groups and you dont want 
+#	      group directories created for these, use this option.
+AUTOGROUP_OPTIONS="realpath=/autogroup,level=2"
+
+# If you desire backup feature and you know what this feature is, then uncomment it!
+# Full path to program as well as arguments.
+# %x characters are replaced with appropriate values.
+# Following is just example. Do not use it as is!
+# See Autodir-HOWTO for further info.
+
+#AUTOHOME_BACKUP="'/bin/tar cf /tmp/%N.tar.gz %L'"
+#AUTOGROUP_BACKUP="'/bin/tar cf /tmp/%N.tar.gz %L'"
+
+# How long to wait after a home directory is unmounted 
+# to start backup. Value expected in seconds and can not exceed one day.
+
+#AUTOHOME_BACKWAIT=600
+#AUTOGROUP_BACKWAIT=600
+
+# Backup priority. 1 to 40 inclusive. Smaller value means higher priority.
+
+#AUTOHOME_BACKPRI=30
+#AUTOGROUP_BACKPRI=30
+
+# Max backup program execusions not to exceed at any given time.
+
+#AUTOHOME_MAXBACK=150
+#AUTOGROUP_MAXBACK=150
+
+

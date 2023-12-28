@@ -1,0 +1,31 @@
+[Unit]
+Description=Autodir Group service
+PartOf=autodir.service
+After=autodir.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=AUTOGROUP_HOME=/group AUTOGROUP_TIMEOUT=300
+Environment=AUTOGROUP_MODULE=/usr/lib/autodir/autogroup.so
+Environment="AUTOGROUP_OPTIONS=realpath=/autogroup,level=2"
+Environment=AUTOGROUP_BACKUP=/bin/true
+Environment=AUTOGROUP_BACKWAIT=600
+Environment=AUTOGROUP_BACKPRI=30
+Environment=AUTOGROUP_MAXBACK=150
+EnvironmentFile=-/etc/default/autodir
+PIDFile=/run/autogroup.pid
+ExecCondition=grep -E -qe '^RUN_AUTOGROUP="yes"' /etc/default/autodir
+ExecReload=kill -HUP $MAINPID
+ExecStart=/usr/sbin/autodir \
+ -d $AUTOGROUP_HOME -m $AUTOGROUP_MODULE \
+ -o $AUTOGROUP_OPTIONS \
+ -t $AUTOGROUP_TIMEOUT \
+ -b $AUTOGROUP_BACKUP \
+ -w $AUTOGROUP_BACKWAIT \
+ -p $AUTOGROUP_BACKPRI \
+ -c $AUTOGROUP_MAXBACK \
+ -l /run/autogroup.pid
+
+[Install]
+WantedBy=autodir.service
