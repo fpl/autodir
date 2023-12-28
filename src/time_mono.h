@@ -22,6 +22,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #define TIME_MONO_H
 
 #include <time.h>
+#include <sys/types.h>
 
 /*INITIALIZE*/
 extern void time_mono_init(void);

@@ -110,7 +110,7 @@ AC_CHECK_FUNCS([vsyslog \
 		stpcpy],
 		[], [AC_MSG_ERROR([[required function not found]])])
 
-AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile man/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile man/Makefile doc/Makefile doc/docbook/Makefile])
 AC_CONFIG_HEADERS([src/config.h])
 
 AC_OUTPUT
