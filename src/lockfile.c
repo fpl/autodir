@@ -6,7 +6,7 @@ Copyright (C) 2007 - 2023 (Francesco Paolo Lovergine) <frankie@debian.org>
 This program is free software; you can redistribute it and/or 
 modify it under the terms of the GNU General Public License 
 as published by the Free Software Foundation; either 
-version 2 of the License, or (at your option) any later 
+version 3 of the License, or (at your option) any later 
 version.
 
 This program is distributed in the hope that it will be useful,
@@ -15,8 +15,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 */
 

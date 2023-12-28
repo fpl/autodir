@@ -1,4 +1,4 @@
-2023-12-27 Francesco Paolo Lovergine <frankie@debian.org>
+2023-12-28 Francesco Paolo Lovergine <frankie@debian.org>
 
 * Moved code to github.
 * Updated with latest general patches from Debian.
@@ -6,6 +6,9 @@
 * Get rid of a series of modern compiler warnings.
 * Updated for modern autotools.
 * Added manpage created in form of a POD file.
+* Moved to GPL-3 for future cmocka intergration (licensed Apache 2).
+* Revised for missin headers in some .h file for consistency.
+* Added missing boilerplates for GPL and updated all of them.
 
 2006-08-23 Ramana Enaganti <ramana@intraperson.com>
 
