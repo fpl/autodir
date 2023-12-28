@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+     "http://docbook.org/xml/4.2/docbookx.dtd" []>
+
+<article id="Autodir-HOWTO">
+
+  <articleinfo>
+
+    <!-- Use "HOWTO", "mini HOWTO", "FAQ" in title, if appropriate -->
+    <title>Autodir HOWTO</title>
+
+    <authorgroup>
+    <author>
+       <firstname>Francesco Paolo</firstname>
+       <surname>Lovergine</surname>
+       <affiliation>
+          <orgname>Debian Project</orgname>
+          <!-- Valid email...spamblock/scramble if so desired -->
+          <address><email>frankie &lt;&gt; debian dot org</email></address>
+       </affiliation>
+     </author>
+    <author>
+       <firstname>Venkata Ramana</firstname>
+       <surname>Enaganti</surname>
+       <affiliation>
+          <!-- Valid email...spamblock/scramble if so desired -->
+          <address><email>ramana &lt;&gt; intraperson dot com</email></address>
+       </affiliation>
+     </author>
+    </authorgroup>
+    <editor>
+       <firstname>Rahul</firstname>
+       <surname>Sundaram</surname>
+    </editor>
+    <editor>
+       <firstname>Machtelt</firstname>
+       <surname>Garrels</surname>
+    </editor>
+
+     <!-- All dates specified in ISO "YYYY-MM-DD" format -->
+     <pubdate>2023-12-24</pubdate>
+
+     <!-- Most recent revision goes at the top; list in descending order -->
+     <revhistory id="revhistory">
+       <revision>
+          <revnumber>1.06</revnumber>
+          <date>2023-12-24</date>
+          <authorinitials>FPL</authorinitials>
+          <revremark>Minor changes for typos, form and other updates</revremark>
+       </revision>
+       <revision>
+          <revnumber>1.05</revnumber>
+          <date>2023-12-23</date>
+          <authorinitials>FPL</authorinitials>
+          <revremark>Review requested by current maintainer</revremark>
+       </revision>
+       <revision>
+          <revnumber>1.04</revnumber>
+          <date>2007-5-25</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>Minor updates</revremark>
+       </revision>
+       <revision>
+       	  <revnumber>1.03</revnumber>
+	  <date>2006-09-15</date>
+	  <authorinitials>GaMA</authorinitials>
+	  <revremark>Review requested by author.</revremark>
+	</revision>
+       <revision>
+          <revnumber>1.02</revnumber>
+          <date>2004-12-25</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>Minor updates</revremark>
+       </revision>
+       <revision>
+          <revnumber>1.00</revnumber>
+          <date>2004-09-23</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>Initial release, reviewed by Rahul Sundaram at TLDP</revremark>
+       </revision>
+       <revision>
+          <revnumber>0.32</revnumber>
+          <date>2004-09-13</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>New sections like requirements and others.</revremark>
+       </revision>
+       <revision>
+          <revnumber>0.10</revnumber>
+          <date>2004-06-24</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>second draft</revremark>
+       </revision>
+       <revision>
+          <revnumber>0.9</revnumber>
+          <date>2004-06-11</date>
+          <authorinitials>VRE</authorinitials>
+          <revremark>first draft</revremark>
+       </revision>
+     </revhistory>
+
+     <!-- Provide a good abstract; a couple of sentences is sufficient -->
+     <abstract>
+        <para>
+		This HOWTO is about the <emphasis role="bold">Autodir</emphasis> installation, configuration and other issues related to <emphasis role="bold">Autodir</emphasis>.  The <emphasis role="bold">Autodir</emphasis> system is often applied for making home directories available in an easy way.
+        </para>
+     </abstract>
+
+  </articleinfo>
+
+
+<!-- Content follows...include introduction, license information, feedback -->
+
+<sect1 id="intro">
+<title>Introduction</title>
+
+<para><emphasis role="bold">Autodir</emphasis> offers a simple and effective means to create directories like home directories in a transparent manner. It relies on the <ulink url="htp://www.autofs.org">autofs</ulink> protocol for its operation.</para>
+
+<para>This document explains how to create directories on demand using <emphasis role="bold">Autodir</emphasis> in a transparent way to the applications. This document also explains using the transparent backup feature that is possible with <emphasis role="bold">Autodir</emphasis>, without system downtime for backup purpose; this applies for all directories managed by <emphasis role="bold">Autodir</emphasis>.</para>
+
+  <!-- Legal Sections -->
+  <sect2 id="copyright">
+    <title>Copyright and License</title>
+    <!-- The LDP recommends, but doesn't require, the GFDL --> 
+    <para>
+     This document, <emphasis>Autodir HOWTO</emphasis>,
+     is originally copyrighted (c) 2004-2007 by <emphasis>Venkata Ramana Enaganti</emphasis>. All successive changes are copyright (c) 2023 by 
+     <emphasis>Francesco Paolo Lovergine</emphasis>
+
+This work is licensed under the Creative Commons Attribution License. To view a copy of this license, visit <ulink url="http://creativecommons.org/licenses/by/2.0">http://creativecommons.org/licenses/by/2.0/</ulink> or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
+
+    </para>
+
+    <para>
+     Linux is a registered trademark of Linus Torvalds.
+    </para>
+  </sect2>
+
+  <sect2 id="disclaimer">
+    <title>Disclaimer</title>
+
+    <para>
+     No liability for the contents of this document can be accepted.
+     Use the concepts, examples and information at your own risk.
+     There may be errors and inaccuracies, that could be damaging to
+     your system.  Proceed with caution, and although this is highly
+     unlikely, the author(s) do not take any responsibility.
+    </para>
+
+    <para>
+     All copyrights are held by their by their respective owners,
+     unless specifically noted otherwise.  Use of a term in this
+     document should not be regarded as affecting the validity of any
+     trademark or service mark.  Naming of particular products or
+     brands should not be seen as endorsements.
+    </para>
+  </sect2>
+
+  <!-- Feedback -->
+  <sect2 id="feedback">
+    <title>Feedback</title>
+
+    <para>
+     Feedback is most certainly welcome for this document. Send
+     your additions, comments and criticisms to the following
+     email address : <email>frankie &lt;&gt; debian dot org</email>.
+    </para>
+  </sect2>
+  <sect2>
+    <title>New Versions of this Document</title>
+    <para>The latest version of this HOWTO will be made available from <ulink url="https://github.com/fpl/autodir/">https://github.com/fpl/autodir/</ulink>.</para>
+  </sect2>
+  <sect2 id="credits">
+    <title>Credits / Contributors</title>
+                                                                                                 
+    <para>
+     In this document, I have the pleasure of acknowledging for language and technical review work:
+    </para>
+                                                                                                 
+    <!-- Please scramble addresses; help prevent spam/email harvesting -->
+    <itemizedlist>
+      <listitem>
+        <para>Rahul Sundaram<email>rahulsundaram@yahoo.co.in</email></para>
+      </listitem>
+      <listitem>
+        <para>Machtelt Garrels</para>
+      </listitem>
+    </itemizedlist>
+  </sect2>
+
+
+</sect1>
+
+<!-- 
+
+     The rest of the document follows. This is where your
+     subject-specific content goes. A logical reading
+     progression should be present - installation, setup,
+     configuration, using, advanced topics, etc.
+
+-->
+
+
+<!-- Other Sections of Interest... -->
+
+<sect1>
+	<title>Before going into the details...</title>
+
+<para>After releasing his software <ulink url="https://sourceforge.net/projects/intraperson/">intraPerson</ulink> beta, Ramana started working on a administration guide that deals with the administration aspects of <emphasis role="bold">intraPerson</emphasis>. But he was stuck with one simple thing. It was easy to create users in LDAP - at least he thought so - but how to create home directories for those users in LDAP wherever those LDAP accounts were imported?</para>
+
+<para>Ramana found some solutions, but he was not satisfied as every solution has serious drawbacks.  After leafing through the Autofs documents and hacking a bit, he came to the conclusion that the Autofs protocol might offer a much better solution to this challenge.</para>
+
+<para>The result is <emphasis role="bold">Autodir</emphasis>, based on the Autofs protocol.</para>
+
+<para>
+     Ramana developed the program in the next three years and it became stable enough to be included in Debian GNU/Linux 4.0 (codename Etch) and all later
+     releases. In 2007, Ramana stepped down as developer for Autodir, and all successive support and fixes have been authored by Francesco, who actively used it
+     in a production environment since then. A long time later, he finally adopted the whole project, including this how-to.
+</para>
+
+</sect1>
+
+<sect1>
+<title>Why not pam_mkhomedir?</title>
+<para>The PAM module <literal>pam_mkhomedir</literal> uses Pluggable Authentication Module architecture for its operation. As such, there are some limitations associated with it. For instance:</para>
+
+<itemizedlist>
+<listitem><para>Some servers may not authenticate users but they may expect user directories to exist. This means they do not use PAM, and in turn, <literal>pam_mkhomedir</literal> does not get a chance to create home directories. The notorious example is on email servers.</para></listitem>
+
+<listitem><para>PAM is always an optional component for authentication. Some services may not use PAM at all and use a different method to authenticate users. In this case <literal>pam_mkhomedir</literal> is never going to be used.</para></listitem>
+<!-- FIXME: example? -->
+<listitem><para>Generally <filename>/home</filename> is owned by root and only root users can create home directories in it. Therefore the service that wishes to create home directories through PAM must be run as root, or else the home directory must have the same permissions as, for instance, <filename>/tmp</filename>.</para></listitem>
+</itemizedlist>
+
+<para>Finally, <emphasis role="bold">Autodir</emphasis> is much wider in scope and supports many more interesting features.</para>
+
+</sect1>
+
+<sect1>
+	<title>Where can Autodir be used?</title>
+
+<itemizedlist>
+<listitem><para>Where user accounts reside in centralized database like LDAP, SQL, NIS, or other databases, from which user and groups are imported to other systems. To create, for example home, group directories in those systems which import these accounts from centralized database, on demand.</para></listitem>
+
+<listitem><para>To exploit its transparent backup feature for 24*7 online systems.</para></listitem>
+
+<listitem><para>It can even be used when accounts are in a local system, to some extent hiding what accounts exist in the <filename>/home</filename> directory, for example.</para></listitem>
+
+</itemizedlist>
+
+</sect1>
+
+<sect1>
+	<title>What Autodir is not</title>
+
+<para><emphasis role="bold">Autodir</emphasis> can create directories, but it does not remove them once user and/or group entries are removed from the system accounts database. Use custom made scripts from cron for this.</para>
+<!-- FIXME: this would be a good place to use xref for crosslinks.-->
+
+</sect1>
+
+<sect1>
+	<title>Differences between Autodir and Autofs</title>
+
+<para>Issue arises when you are already using the <application>Autofs</application> package, handling the mounts of (home) directories.  Let's look at the differences between the two packages:</para>
+
+<itemizedlist>
+<listitem>
+<para>The main purpose of autofs is to deal with network mounts on demand instead of mounting all at the same time, which results in preserving system resources. Though there is some support in the autofs package to mount home directories on demand, the requirement is that <emphasis>these home directories must exist already</emphasis>.</para>
+
+<para>On the other hand, <emphasis role="bold">Autodir</emphasis> specializes <emphasis>only</emphasis> in local directory creation and mounting them on demand.</para>
+
+<para><emphasis role="bold">Autodir</emphasis> can also create real directories in disk file systems, which do not reside in one single flat base directory. This is how utilities like <command>useradd</command> create by default. In a standard file system setup, all home directories reside in the base <filename>/home</filename> directory. For file systems like ext2 and ext3 performance will degrade if a large number of home directories exist in one single base directory.</para> 
+
+<para> For applications accessing these directories, <emphasis role="bold">Autodir</emphasis> presents all directories for them in a <emphasis>single</emphasis> autofs mounted virtual base directory <emphasis>on demand</emphasis>; actual directories are created in subdirectories of some other directory in hierarchical style.</para>
+
+<para> For example, the real home for a user with username <literal>user1</literal> will be created as <filename>/autohome/u/us/user1</filename> if configured that way, but mounted in <filename>/home</filename> on demand for applications accessing the home directory in <filename>/home/user1</filename>.</para>
+
+<!-- changed uid into username, as uid is numercial and username [a-z]. -->
+
+<para>Permissions for the real base directory, where the actual home directories are kept (<filename>/autohome</filename> in the above example), are kept in such a way that <filename>/autohome</filename> can not be accessed by anyone except by root.</para>
+
+<para>This mounting of directories on demand and unmounting when not in use presents an interesting opportunity: the ability to tell whether a directory is in use or not.  If a directory is not in use, a program like a backup application can be safely started when a directory is unmounted.</para>
+
+<para><emphasis role="bold">Autodir</emphasis> exploits this capability by starting the command-line mentioned backup whenever a directory becomes unused.</para>
+</listitem>
+
+<listitem>
+<para>There is one more important issue to be presented if you are an administrator reading this document. <emphasis role="bold">Autodir</emphasis> does not call the external programs <command>mount</command> and <command>umount</command>, as is the case with the autofs package; rather, it uses system calls directly. As a side effect, it is faster and more reliable, but the <filename>mtab</filename> file is not updated. I felt this was not necessary as all mounts and unmounts are local directories.</para>
+</listitem>
+
+<listitem>
+<para>Another minor difference is that <emphasis role="bold">Autodir</emphasis> is completely <emphasis>multi-threaded</emphasis>. Autofs is also expected to be multi-threaded in future versions.</para>
+</listitem>
+</itemizedlist>
+
+
+</sect1>
+
+<sect1>
+<title>How it works</title>
+
+<para><emphasis role="bold">Autodir</emphasis> uses modules to get specific functionality. The core <emphasis role="bold">Autodir</emphasis> implements generic functionality that modules can exploit and add specific functionality to.</para>
+
+<para>At any moment only one module can be added to <emphasis role="bold">Autodir</emphasis>. If there are two modules, for example <literal>autohome</literal> and <literal>autogroup</literal>, then two processes of <emphasis role="bold">Autodir</emphasis> should be created so that each process can have one of the required modules attached to it.</para>
+
+<para>For further explanation I chose the <literal>autohome</literal> module which handles transparent home directory creation.</para>
+
+
+<note><title>Assumptions</title>
+<!--FIXME: notes also take the title attribute, this sets them apart from the rest of the text in a nicer way, especially with the LDP stylesheets.-->
+<itemizedlist>
+
+<listitem><para>The <literal>autohome</literal> module creates user home directories on demand if these do not exist already.</para></listitem>
+
+<listitem><para>It is assumed that user accounts exists, but the accompanying home directories do not - either because these accounts were created with the <literal>-M</literal> option with <command>useradd</command> or because these accounts were imported from LDAP, NIS or some other external database for which home directories are yet to be created.</para></listitem>
+
+<listitem><para>It also assumed <emphasis>for this explanation only</emphasis> that all user home directories are expected to be in the <filename>/home</filename> directory.</para></listitem>
+
+</itemizedlist>
+</note>
+
+<note><title>KISS</title>
+<para>Keep it Simple: Some fine details are intentionally kept aside to make the explanation easy to understand.</para></note>
+
+<para>First the autofs file system is mounted on the <filename>/home</filename> directory by <emphasis role="bold">Autodir</emphasis>. The Linux kernel is informed that <filename>/home</filename> is managed by a user space application, <emphasis role="bold">Autodir</emphasis>, from now on.</para>
+
+<note><title>Autofs?</title>
+<para>Do not bother too much about the autofs file system if you do not understand about it. Just think of it as a special kind of file system, similar to memory based file systems but with some additional special properties.</para></note>
+
+<screen>
+
+                                +----------------+
+                                |  Linux Kernel  |
+                                +----------------+
+                                  /        \
+                                 /          \
+                                /            \
+                               /              \
+   +-------------+       +--------+       +------------+        +-----------------+
+   | Application |------>| /home  |&lt;-----&gt;|  Autodir   |&lt;------&gt;| autohome module |
+   +-------------+       +--------+       +------------+        +-----------------+
+                              \                                          /
+                               \  +----------------+                    /
+                                +-|   /autohome    |&lt;------------------+
+                                  +----------------+
+</screen>
+
+<para>Whenever an application or daemon needs access to a user's home directory, for example <filename>/home/userhome1</filename>, they directly enter into <filename>/home/userhome1</filename> to access it. The kernel, which notices this, informs <emphasis role="bold">Autodir</emphasis> if the <filename>userhome1</filename> directory does not yet exist already in <filename>/home</filename>.</para>
+
+<para><emphasis role="bold">Autodir</emphasis>, in turn, passes this request to the <literal>autohome</literal> module.  The <literal>autohome</literal> module does not touch the <filename>/home</filename> directory. Instead it manages <emphasis>real home directories</emphasis> somewhere else, for example in <filename>/autohome</filename> as shown in the above figure.</para>
+
+<para>The <literal>autohome</literal> module creates a real home directory if it does not exist in the <filename>/autohome</filename> directory. After it is successfully created or failed to be created, whatever the outcome, <literal>autohome</literal> reports back to <emphasis role="bold">Autodir</emphasis>.  When the directory creation task has completed successfully, the path to real home directory is provided to <emphasis role="bold">Autodir</emphasis>.</para>
+
+<para>If the <literal>autohome</literal> module reports success, <emphasis role="bold">Autodir</emphasis> creates <filename>userhome1</filename> directory under <filename>/home</filename> and mounts the <emphasis>real home directory</emphasis> from <filename>/autohome</filename> on it. At the end of the process, <emphasis role="bold">Autodir</emphasis> informs the kernel whether the whole operation was successful or not. Accordingly, the kernel allows applications to enter the directory, or, in case of failure, it reports that no such directory exists.</para>
+
+</sect1>
+
+<sect1>
+	<title>Some definitions</title>
+
+<para>Before going further it is better to understand the following terms to simplify explanation.</para>
+
+<variablelist>
+
+<varlistentry><term><emphasis role="bold">Virtual directories</emphasis></term><listitem><para> These directories do not exist on disk.  Instead these are created and deleted on demand in memory. If the system reboots all these directories vanish. In the previous figure, all directories under <filename>/home</filename> are <emphasis>virtual directories</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><emphasis role="bold">Virtual base directory</emphasis></term><listitem><para> This is the directory that holds all <emphasis>Virtual directories</emphasis>. This directory <emphasis>does</emphasis> exist on disk and therefore it remains even after reboot. In the previous figure <filename>/home</filename> is <emphasis>virtual base directory</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><emphasis role="bold">Real directories</emphasis></term><listitem><para> These are the directories that actually reside on the disk. Even after reboot, these remain intact. In the previous figure all directories created under <filename>/autohome</filename> are <emphasis>real directories</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><emphasis role="bold">Real base directory</emphasis></term><listitem><para> This is the directory that holds all real directories. In the above figure <filename>/autohome</filename> is <emphasis>real base directory</emphasis>.</para></listitem></varlistentry>
+
+</variablelist>
+
+<para>Each <emphasis>virtual directory</emphasis> is mapped to a <emphasis>real directory</emphasis>.  This means that whatever is written to or modified in the <emphasis>virtual directory</emphasis> is actually sent to the <emphasis>real directory</emphasis>.</para>
+
+<para>On reboot of the system <emphasis>real directories</emphasis> and their content remain intact. But <emphasis>virtual directories</emphasis> are again created on demand, exactly as they were before.</para>
+
+<para><emphasis>Virtual directories</emphasis> are removed if these are not used for a specified period of time, and created again if necessary. When a <emphasis>Virtual directory</emphasis> is removed, the backup program is started on the corresponding <emphasis>real directory</emphasis> - if backup is configured.</para>
+
+<important><para>Applications should access only <emphasis>virtual directories</emphasis>. <emphasis>Real directories</emphasis> are hidden from applications.  Only the root user can see them.  There is one exception: backup programs always access the <emphasis>real directories</emphasis> only.</para></important>
+
+</sect1>
+
+<sect1 id="dirorg">
+<title>Directory organization in the real base directory</title>
+
+<para>Why should there be any special organization in the <emphasis>real base directory</emphasis>? If we just create all <emphasis>real directories</emphasis> in one <emphasis>real base directory</emphasis> there could be a performance penalty when there are a large number of <emphasis>real directories</emphasis> to be created. File systems like ext2/ext3 are not optimized for this kind of flat directory structure.</para>
+
+<para>It would be much better if the <emphasis>real base directory</emphasis> is divided into more subdirectories, or even to divide these subdirectories again into more subdirectories. And in the final subdirectories actual home directories are kept.</para>
+
+<!-- you are only allowed one exclamation mark in your life, as a rule ;-) -->
+
+<para>There are three types of directory organization:</para>
+
+<variablelist>
+
+<varlistentry><term><emphasis role="bold">level 0</emphasis></term><listitem><para>Actually no organization. All home directories are created directly under <emphasis>real base directory</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><emphasis role="bold">level 1</emphasis></term><listitem><para>The <emphasis>Real base directory</emphasis> is divided into more subdirectories. The subdirectory names are derived from the first character of the final directory to be created. For example, if the <filename>user1</filename> directory is to be created, first a directory named 'u' is created under <emphasis>real base directory</emphasis>. Then in that subdirectory the actual directory <filename>user1</filename> is created as <filename>/&lt;real_base_directory&gt;/u/user1</filename>.</para></listitem></varlistentry>
+
+<varlistentry><term><emphasis role="bold">level 2</emphasis></term><listitem><para>Same as level 1 organization but after the first level of subdirectories, a second level of subdirectories is created. The names here are the first two characters of the final directory to be created. For example, for user <literal>user1</literal>, as in the above example, the <filename>/&lt;real_base_directory&gt;/u/us/user1</filename> directory is created.</para></listitem></varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="vdexp">
+<title>Virtual directory expiration</title>
+
+<para>When an application tries to access a <emphasis>virtual directory</emphasis> in a <emphasis>virtual base directory</emphasis>, <emphasis role="bold">Autodir</emphasis> creates the <emphasis>virtual directory</emphasis> in it if it does not exist already and mounts the <emphasis>real directory</emphasis> on it from the <emphasis>real base directory</emphasis>. Once this is done, a timer is started.  If the <emphasis>virtual directory</emphasis> is not accessed from the <emphasis>virtual base directory</emphasis> by any application for the specified period of time, this directory is removed and the corresponding <emphasis>real directory</emphasis> in the <emphasis>real base directory</emphasis> is marked for backup.</para>
+
+<para>The time period to wait for expiration can be given through a <link linkend="autodir_t_opt">command line option</link> to <emphasis role="bold">Autodir</emphasis>.</para>
+<!-- FIXME: use xref here instead of link-->
+</sect1>
+
+<sect1 id="backup">
+	<title>Backup support</title>
+
+<para> <emphasis role="bold">Autodir</emphasis> supports backup program launching when a <emphasis>virtual directory</emphasis>  is removed after a period of inactivity. Removal of the <emphasis>virtual directory</emphasis> is itself an assurance that no other application can access the content and modify it.</para>
+
+<para>Just like there is wait time for expiring a <emphasis>virtual directory</emphasis>, for backup <emphasis role="bold">Autodir</emphasis> also waits during some time after the expiry of the <emphasis>virtual directory</emphasis>, prior to starting the backup. This time period can be configured through a <link linkend="autodir_w_opt">command line option</link> to <emphasis role="bold">Autodir</emphasis>.</para>
+<!-- FIXME: use xref here-->
+<para>By design, backup programs are expected to operate on <emphasis>real directories</emphasis> but not on <emphasis>virtual directory</emphasis>. If the backup program try to access a <emphasis>virtual directory</emphasis>, then <emphasis role="bold">Autodir</emphasis> assumes some regular application is in need of that directory and the backup program is killed, even if the <emphasis>virtual directory</emphasis> accessing process is the backup program itself.</para>
+
+<para>A separate backup process for each <emphasis>real directory</emphasis> is used. The backup program can be given <link linkend="back_esc_str">arguments</link> of <emphasis>real directories</emphasis> on which to operate.</para>
+
+<note><para>Backup support is independent of any particular module being used. It is applicable to all modules with <emphasis role="bold">Autodir</emphasis>.</para></note>
+
+<important><title>Backup = real!</title><para>Backup programs should never access <emphasis>virtual directory</emphasis> or <emphasis>virtual base directory</emphasis>.</para></important>
+<!--Warnings, notes, tips, cautions and importants all take title tags as children.-->
+<caution><title>Time off</title><para>The backup feature is not much use if the <emphasis>virtual directories</emphasis> are being accessed by applications all the time.</para></caution>
+
+</sect1>
+
+<sect1 id="backupreq">
+<title>Backup program requirements</title>
+
+<para><emphasis role="bold">Autodir</emphasis> demands some extra requirements from the backup program being used: when the backup is working on the <emphasis>real directory</emphasis>, with corresponding expired <emphasis>virtual directory</emphasis>, and that <emphasis>virtual directory</emphasis> is requested again by an application while the backup is running, the backup process is killed. First a <literal>SIGTERM</literal> is sent to gracefully stop it. But if it does not shut down in time - and it has one second to do this - a <literal>SIGKILL</literal> will be sent, which is guaranteed to stop the backup.</para>
+
+<note><para>Only when the backup has stopped the application is given access to the requested <emphasis>virtual directory</emphasis>.</para></note>
+
+<important><para>Whatever backup is used, it should be able to recover from this signal gracefully, not causing unrecoverable side effects.</para></important>
+
+<para>One more important issue is the environment in which the backup runs. All backup programs run as root. But at the same time all unnecessary root privileges are taken away using POSIX capabilities. In other words these backup programs can read any file or directory that belongs to any user on the system and nothing more than that. Other than that, the backup process behaves like an ordinary user level process.</para>
+
+</sect1>
+
+<sect1>
+<title>Module options</title>
+
+<para>There are two kinds of options that can be passed to <emphasis role="bold">Autodir</emphasis>. In the first type, <link linkend="aoptions">options</link> are for <command>autodir</command> itself and are common irrespective of which module is used. The other type of options are specific to the module being used. These options are called suboptions and are passed to the module being used; they are different from the main <literal>-o</literal> option. This is similar to the suboptions used with the <command>mount</command> command.</para>
+
+<para>For example, suboptions to the example module <literal>autohome</literal> can be passed as follows:</para>
+
+<screen>
+-o 'realpath=/tmp/autohome,level=2,noskel'
+</screen>
+
+<para>Here <literal>realpath</literal>, <literal>level</literal> and <literal>noskel</literal> are suboptions for <literal>autohome</literal> module.</para>
+
+</sect1>
+
+<sect1>
+<title>Autodir requirements</title>
+
+<itemizedlist>
+<listitem>
+<para>You will need a Linux kernel equal to or later than version 2.4. These kernel versions support mounting one directory on another directory. At this moment <emphasis role="bold">Autodir</emphasis> is not ported to other Unices but this may change in the future.</para>
+</listitem>
+
+<listitem>
+<para><emphasis role="bold">Autodir</emphasis> requires the autofs kernel module based on protocol version 4. But it does not require the autofs user level package. The autofs kernel module is pretty standard and almost all distributions include it.</para>
+</listitem>
+
+</itemizedlist>
+
+</sect1>
+
+<sect1 id="autofs_kmod">
+<title>Autofs kernel module</title>
+
+<para><emphasis role="bold">Autodir</emphasis> uses the autofs kernel module for its operation. The kernel module <literal>autofs</literal> must be loaded before starting <command>autodir</command>.</para>
+
+<para>This can be done as the root user, using the <command>modprobe</command> command as follows:</para>
+
+<screen>
+# modprobe autofs
+</screen>
+
+</sect1>
+
+<sect1>
+<title>Importing user and group accounts</title>
+<para>If user and group accounts reside in a centralized database these must be imported before starting <emphasis role="bold">Autodir</emphasis>. How to do this is out of the scope of this HOWTO. There are a number of documents which explain in a clear way how to do this.</para>
+<!--FIXME: add some links?-->
+</sect1>
+
+<sect1>
+	<title>Getting Autodir</title>
+
+    <para>At this moment <emphasis role="bold">Autodir</emphasis> is available in the main archive of Debian GNU/Linux and all its derivative distributions, including Ubuntu. The source repository is hosted on Github at <ulink url="https://github.com/fpl/autodir/">https://github.com/fpl/autodir/</ulink>.</para>
+
+<para>After downloading the source, follow these simple steps to install :</para>
+
+<itemizedlist>
+
+<listitem>
+<para>Unpack the source.</para>
+<para><literal>$ tar zxvf &lt;tar file name&gt;</literal></para>
+</listitem>
+
+<!-- use <cmdsynopsis> in the future.-->
+
+<listitem>
+<para>Move to the expanded directory and execute the following commands:</para>
+<para><literal>$ ./configure</literal></para>
+<para><literal>$ make</literal></para>
+<para><literal># make install</literal></para>
+</listitem>
+<!--idem-->
+</itemizedlist>
+
+<note><title>No go?</title>
+<para>The <literal>configure</literal> script checks for the required libraries. If these are not present it will stop.</para></note>
+
+</sect1>
+
+<sect1 id="homedir">
+<title>Managing home directories</title>
+
+<para>This section will explain how to configure <emphasis role="bold">Autodir</emphasis> so that user home directories are created on demand. For this purpose the <literal>autohome</literal> module, which deals with specifics of home directory creation, is used.</para>
+
+<para>To load the <literal>autohome</literal> module with <emphasis role="bold">Autodir</emphasis>, use the <literal>-m</literal> option. For example, <literal>-m /usr/lib/autodir/autohome.so</literal>.</para>
+
+<!--use <option> instead of literal for options; use <application>Autodir</application> instead of <emphasis>.-->
+
+<note><title>User/home matching</title><para>When an application tries to access a home directory, that home directory is used to check if there is any user with the same user name as the directory name being accessed. If a user name exists, then the home directory is created. Otherwise the message <quote>no such file or directory</quote> is reported back to the application.</para></note>
+
+<note><title>User accounts</title><para><literal>Autohome</literal> does not deal with the creation of user accounts on local systems, in LDAP or in any other database. It only deals with creating home directories once these accounts exist and are imported to the local system from databases like LDAP and NIS.</para></note>
+
+<important><title>Limitations</title><para>It is worth mentioning one limitation of the <literal>autohome</literal> module. It expects that user name and home directory are related to each other. For example, for user <literal>user1</literal> the home directory should be <filename>/home/user1</filename> or <filename>/some/directory/name/user1</filename> but not <filename>/some/directory/name/userhome1</filename>. This can be supported but it will be a burden on system resources as each password entry has to be examined from first to last.</para></important>
+
+<note><title>Knowing when not to use autohome</title><para>If the existing user password database is such that user home directories are distributed under different base directories, for example <filename>/home/class1/user1</filename>, <filename>/home/class2/user2332</filename>, then <literal>autohome</literal> configuration becomes complicated and is not recommended.</para></note>
+
+<!-- There are quite some notes in a row here.  Maybe it would be better to make it just a block of text?-->
+
+<sect2>
+<title>Base directories for autohome</title>
+
+<para>The next step in the setup procedure is to decide where the <emphasis>virtual base directory</emphasis> and <emphasis>real base directory</emphasis> for home directory creation will be located.</para>
+
+<para>What are the <emphasis>virtual base directory</emphasis> and the <emphasis>real base directory</emphasis> in the context of the <literal>autohome</literal> module?</para>
+
+<para>This all depends on how user accounts are created. If a user account created for user name user1 with home directory <filename>/home/user1</filename> then <filename>/home</filename> <emphasis>will become the virtual base directory</emphasis>.</para>
+
+<para>Then what is the <emphasis>real base directory</emphasis>?  This can be any directory. The only thing that you need to keep in mind is that there should be enough space, as all actual files are stored here instead of in the <emphasis>virtual base directory</emphasis>.</para>
+
+<para>In most server configurations <filename>/home</filename> is a separate partition. But if <filename>/home</filename> is the <emphasis>virtual base directory</emphasis>, then files are not stored in that directory! The solution is not to mount a partition on <filename>/home</filename> but instead mount it somewhere else and make it the <emphasis>real base directory</emphasis>.</para> 
+
+<para>The <emphasis role="bold">Autodir</emphasis> option <literal>-d</literal> is used to specify the <emphasis>virtual base directory</emphasis>. For example: <literal>autodir -d /home</literal> assumes that <filename>/home</filename> is the <emphasis>virtual base directory</emphasis>.</para>
+
+<!-- In the future replace this syntax with <command>autodir <option>-d</option> <filename>/home</filename></command>-->
+
+<para>It is somewhat tricky to specify the <emphasis>real base directory</emphasis>.  The <emphasis>real base directory</emphasis> is managed by the <literal>autohome</literal> module so this option must be passed to the module through module suboptions. If the <emphasis>real base directory</emphasis> is <filename>/var/autohome</filename> then it is specified with the option <literal>-o</literal> as <literal>-o realpath=/var/autohome</literal>.</para>
+
+</sect2>
+
+<sect2>
+<title>Directory organization</title>
+
+<para>Refer to <link linkend="dirorg">directory organization under the real base directory</link> for a detailed explanation of this topic.</para>
+
+<!-- here too use xref for readability of links in printed versions-->
+
+<para><literal>autohome</literal> does support this kind of organization. The suboption used to specify the desired directory organization the <literal>level</literal> suboption, for instance: <literal>-o level=2</literal>.</para>
+
+</sect2>
+
+<sect2>
+	<title>Misc suboptions for autohome</title>
+
+<para>The suboption <literal>skel</literal> can be used if the skeleton path is not the default value <filename>/etc/skel</filename>: <literal> -o skel=/some/other/dir</literal>.</para>
+
+<para>The suboption <literal>noskel</literal> can be used with <literal>-o</literal> to indicate not to copy any skeleton files to the home directories when these are created.</para>
+
+</sect2>
+
+<sect2>
+<title>Example</title>
+
+<para>First, import your user accounts from a centralized database, for instance from LDAP.</para>
+
+<para>Next, the <literal>autofs</literal> kernel module must be loaded into the Linux kernel. This can be done as described in <link linkend="autofs_kmod">autofs kernel module section</link>.</para>
+
+<!-- Question: can this be put in /etc/modules.conf?  Seems a bit strange to me that you would perform this operation manually all the time.-->
+
+<para>If <filename>/home</filename> is to be used for home directories then <filename>/home</filename> will become the <emphasis>virtual directory</emphasis>; this is specified to <command>autodir</command> with the <literal>-d /home</literal> option.</para>
+
+<para>Assuming that the <literal>autohome</literal> module is located in <filename>/usr/lib/autodir/autohome.so</filename>, this module can be loaded with <command>autodir</command> as <literal>-m /usr/lib/autodir/autohome.so</literal>. Note that the full path for the module is given.</para>
+
+<!--Use of <cmdsynopsis><command></command></cmdsynopsis> would be appropriate here.-->
+
+<para>The actual location of the real home directories is given with the <literal>realpath</literal> suboption. If it is <filename>/autohome</filename>, the location can be specified as <literal>realpath=/autohome</literal>.</para>
+
+<para>With all these options <command>autodir</command> can be started as:</para>
+
+<screen>
+# autodir -d /home 						\
+		-m /usr/lib/autodir/autohome.so 		\
+		-o 'realpath=/autohome'			 	\
+</screen>
+
+<para>Once <emphasis role="bold">Autodir</emphasis> is started, initially the <filename>/home</filename> directory will be empty. Whether <emphasis role="bold">Autodir</emphasis> is working properly can be tested by changing directories to one of the home directories, as the root user or as the owner of the home directory.</para>
+<!-- Try to be more direct, for instance:
+You can test the correct operation of Autodir by changing directories to...-->
+
+</sect2>
+
+</sect1>
+
+<sect1>
+<title>Managing group directories</title>
+
+<para>The <literal>autogroup</literal> module is used for creating group directories on demand for common group access. It can be used with Samba, for example, to dynamically create shared directories for a group of people.</para>
+
+<note><title>Check</title><para>The <literal>autogroup</literal> module checks for the requested directory in valid groups from the system group database.</para></note>
+
+<!--FIXME: this should be rephrased but I'm not sure exactly how.  Do you mean that the module checks for permissions on the group dir, refering to i.e. /etc/group entries?-->
+
+<tip><title>Using autogroup for the creation of home directories</title><para>The <literal>autogroup</literal> module can be used to create home directories as well, provided that user private groups exist for each user. This way all group and home directories can be created in one place with one module. However, no skeleton files will be copied and the <literal>autogroup</literal> suboption <literal>nopriv</literal> should not be used.</para></tip>
+
+<para>The <literal>autogroup</literal> configuration is the same as the <literal>autohome</literal> module, but unlike <literal>autohome</literal>, the <emphasis>virtual base directory</emphasis> can be placed anywhere and any name can be given to it. It is not dictated by system accounts.</para>
+
+<para>The module <literal>autogroup</literal> can be used with <emphasis role="bold">Autodir</emphasis> using the <literal>-m</literal> option. For example, <literal>-m /usr/lib/autodir/autogroup.so</literal>.</para>
+
+<!--using the <option>-m</option> option;
+For example: <command>autodir <option>-d</option> <filename>homedir</filename> <option>-m</option> <filename>/usr/lib/autodir/autogroup.so</filename></command>.-->
+
+<para>All suboptions explained in <link linkend="homedir">managing home directories</link> are the same for <literal>autogroup</literal>, except <literal>skel</literal> and <literal>noskel</literal>, as these are meaningless for the <literal>autogroup</literal> module. Additionally, there are other suboptions specific to <literal>autogroup</literal>. These are given below.</para>
+<!-- use <xref linkend="ID" />. -->
+<variablelist>
+
+<varlistentry><term><literal>nopriv</literal></term><listitem><para>Some Linux installations use user private groups. If directories for these groups are not to be created, then use this suboption.</para></listitem></varlistentry>
+
+</variablelist>
+
+<!--You mentioned suboptionS, plural.  Did you forget additional options, or is this the only one?  If it is the only one, a listing seems overkill...-->
+
+</sect1>
+
+<sect1 id="aoptions">
+	<title>Autodir options</title>
+
+<para>In this section some of the options to <emphasis role="bold">Autodir</emphasis> are explained. Backup options are explained in the <link linkend="backupopts">backup section</link>.</para>
+<!-- use xref-->
+<variablelist>
+
+<varlistentry><term><literal>-d</literal></term><listitem><para>Specifies the <emphasis>virtual base directory</emphasis>. If this path does not exist, it will be created. An absolute path is expected for this option.</para></listitem></varlistentry>
+
+<varlistentry><term id="autodir_t_opt"><literal>-t</literal></term><listitem><para>Expiration timeout for <emphasis>virtual directories</emphasis>. For more details refer to <link linkend="vdexp">virtual directory expiration</link>.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-m</literal></term><listitem><para>Module to be used with <emphasis role="bold">Autodir</emphasis>. Currently <literal>autohome</literal> and <literal>autogroup</literal> are available. The full path to the module is expected.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-o</literal></term><listitem><para>All suboptions that are to be passed to module are given here. This option passing syntax is similar to that of the <command>mount</command> command with its <literal>-o</literal> option. See specific module sections for more info.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-f</literal></term><listitem><para>Run in the foreground and log all messages to the console. For debugging purpose and to see how <emphasis role="bold">Autodir</emphasis> works.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-l</literal></term><listitem><para>This option expects a path name to a file in which <emphasis role="bold">Autodir</emphasis> will write its process id.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-h</literal></term><listitem><para>Help about all options supported by <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-v</literal></term><listitem><para>Version information about <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
+
+</variablelist>
+
+</sect1>
+
+
+<sect1 id="backupopts">
+<title>Backup options</title>
+
+<para>These options are passed to <emphasis role="bold">Autodir</emphasis> to request backup support.</para>
+
+<variablelist>
+
+<varlistentry><term><literal>-b</literal></term><listitem><para>This is the main option to specify the backup program path and arguments to it. The path given should be an absolute path, otherwise <emphasis role="bold">Autodir</emphasis> does not accept it.</para></listitem></varlistentry>
+
+<varlistentry><term id="autodir_w_opt"><literal>-w</literal></term><listitem><para>Whenever a <emphasis>virtual directory</emphasis> is not used for a period of time, it is assumed inactive and it is unmounted.  After unmounting the directory, whether to launch the backup immediately or to wait some more time is decided with this option. It takes arguments in seconds. It is the <emphasis>minimum</emphasis> time to wait before starting backup after <emphasis>virtual directory</emphasis> expiration. It should not exceed one day.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-p</literal></term><listitem><para>This is the priority to be given to the backup process. <emphasis>This is in the range of 1 to 40 inclusive</emphasis>. Lower value means higher priority and vice versa. The default value is 30.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-c</literal></term><listitem><para>This restricts the maximum number of backup processes at any given time. The default is 150.</para></listitem></varlistentry>
+</variablelist>
+
+<caution><title>Using quotes</title><para>The argument for the <literal>-b</literal> option is includes the absolute backup program path as well as its own arguments. Therefore it is recommended to use single quotes around this argument.</para></caution>
+
+<para>The <literal>-b</literal> option takes a path to executable file as well as arguments to it. However, the arguments are interpreted for a sequence of %x characters and replaced with predefined strings as follows:</para>
+
+<variablelist>
+
+<varlistentry><term><literal>%N</literal></term><listitem><para>Replaced with the <emphasis>virtual directory</emphasis> name.</para></listitem></varlistentry>
+
+<varlistentry id="back_esc_str"><term><literal>%L</literal></term><listitem><para>Replaced with an absolute path to the <emphasis>real directory</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>%K</literal></term><listitem><para>Replaced with host name.</para></listitem></varlistentry>
+
+<varlistentry><term>Others</term><listitem><para>Others are fed to <literal>strftime</literal>. See the man page for <literal>strftime</literal> for more information.</para></listitem></varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1>
+<title>Examples</title>
+<screen>
+# autodir -d /home 						\
+		-m /usr/lib/autodir/autohome.so 		\
+		-t 1000						\
+		-f 						\
+		-o 'realpath=/autohome,level=1,skel=/etc/skel' 	\
+		-l /var/run/autodir.pid
+</screen>
+
+<screen>
+# autodir -d /home						\
+		-m /usr/lib/autodir/autohome.so			\
+		-t 300						\
+		-b '/bin/tar cf /tmp/%N%F.tar %L'		\
+		-w 600						\
+		-o 'realpath=/tmp/autohome,level=2,noskel'	\
+		-l /var/run/autodir.pid
+</screen>
+
+<screen>
+# autodir -d /var/abase/ 					\
+		-m /usr/lib/autodir/autogroup.so		\
+		-t 300						\
+		-b '/bin/tar cf /tmp/%N%F.tar %L'		\
+		-w 86400					\
+		-o 'nopriv,nosetgid,realpath=/var/realbase,level=0' 
+</screen>
+
+</sect1>
+
+<sect1>
+	<title>RPM specific</title>
+
+<para><emphasis role="bold">Autodir</emphasis> can be installed from rpms as follows:</para>
+<screen>
+# rpm -ivh autodir-0.28-4.i386.rpm
+</screen>
+
+<para>When installed from rpms, two startup scripts are provided: <filename>/etc/rc.d/init.d/autohome</filename> and <filename>/etc/rc.d/init.d/autogroup</filename>. The first one is for starting <emphasis role="bold">Autodir</emphasis> with the <literal>autohome</literal> module, the second for starting with the <literal>autogroup</literal> module.</para>
+
+<para>The script configuration files <filename>/etc/sysconfig/autohome</filename> and <filename>/etc/sysconfig/autogroup</filename> can be used to specify what options can be passed to <emphasis role="bold">Autodir</emphasis>.</para>
+
+</sect1>
+
+<sect1 id="moreinfo">
+	<title>Further Information</title>
+<itemizedlist>
+    <listitem><para>Official website is at <ulink url="https://github.com/fpl/autodir/">https://github.com/fpl/autodir/</ulink>.</para></listitem>
+
+<listitem><para>Autofs mailing list <ulink url="http://linux.kernel.org/mailman/listinfo/autofs">http://linux.kernel.org/mailman/listinfo/autofs</ulink>.</para></listitem>
+
+<listitem><para>The Automount HOWTO can be found at <ulink url="http://www.tldp.org">http://www.tldp.org</ulink></para></listitem>
+
+<listitem><para>Autofs Hacking <ulink url="http://www.goop.org/~jeremy/autofs/">http://www.goop.org/~jeremy/autofs</ulink>.</para></listitem>
+</itemizedlist>
+
+</sect1>
+
+</article>
+
