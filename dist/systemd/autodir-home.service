@@ -1,11 +1,11 @@
 [Unit]
 Description=Autodir Home service
-PartOf=autodir.service
-After=autodir.service
+Documentation=man:autodir.8
+Wants=network-online.target
+After=network-online.target nss-lookup.target local-fs.target remote-fs.target
 
 [Service]
-Type=oneshot
-RemainAfterExit=yes
+Type=forking
 Environment=AUTOHOME_HOME=/home AUTOHOME_TIMEOUT=600
 Environment=AUTOHOME_MODULE=/usr/lib/autodir/autohome.so
 Environment="AUTHOME_OPTIONS=realpath=/autohome,level=2,skel=/etc/skel"
@@ -16,7 +16,6 @@ Environment=AUTOHOME_MAXBACK=150
 EnvironmentFile=-/etc/default/autodir
 PIDFile=/run/autohome.pid
 ExecReload=kill -HUP $MAINPID
-ExecCondition=grep -E -qe '^RUN_AUTOHOME="yes"' /etc/default/autodir
 ExecStart=/usr/sbin/autodir \
  -d $AUTOHOME_HOME -m $AUTOHOME_MODULE \
  -o $AUTOHOME_OPTIONS \
@@ -28,5 +27,4 @@ ExecStart=/usr/sbin/autodir \
  -l /run/autohome.pid
 
 [Install]
-WantedBy=autodir.service
-
+WantedBy=multi-user.target

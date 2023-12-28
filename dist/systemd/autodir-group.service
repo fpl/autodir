@@ -1,11 +1,11 @@
 [Unit]
 Description=Autodir Group service
-PartOf=autodir.service
-After=autodir.service
+Documentation=man:autodir.8
+Wants=network-online.target
+After=network-online.target nss-lookup.target local-fs.target remote-fs.target
 
 [Service]
-Type=oneshot
-RemainAfterExit=yes
+Type=forking
 Environment=AUTOGROUP_HOME=/group AUTOGROUP_TIMEOUT=300
 Environment=AUTOGROUP_MODULE=/usr/lib/autodir/autogroup.so
 Environment="AUTOGROUP_OPTIONS=realpath=/autogroup,level=2"
@@ -15,7 +15,6 @@ Environment=AUTOGROUP_BACKPRI=30
 Environment=AUTOGROUP_MAXBACK=150
 EnvironmentFile=-/etc/default/autodir
 PIDFile=/run/autogroup.pid
-ExecCondition=grep -E -qe '^RUN_AUTOGROUP="yes"' /etc/default/autodir
 ExecReload=kill -HUP $MAINPID
 ExecStart=/usr/sbin/autodir \
  -d $AUTOGROUP_HOME -m $AUTOGROUP_MODULE \
@@ -28,4 +27,4 @@ ExecStart=/usr/sbin/autodir \
  -l /run/autogroup.pid
 
 [Install]
-WantedBy=autodir.service
+WantedBy=multi-user.target

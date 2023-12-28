@@ -6,7 +6,7 @@
 * Get rid of a series of modern compiler warnings.
 * Updated for modern autotools.
 * Added manpage created in form of a POD file.
-* Moved to GPL-3 for future cmocka intergration (licensed Apache 2).
+* Moved to GPL-3 for future cmocka integration (licensed Apache 2).
 * Revised for missin headers in some .h file for consistency.
 * Added missing boilerplates for GPL and updated all of them.
 * Added dist/ dir with contributed init script and systemd unit files.

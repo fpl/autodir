@@ -310,6 +310,8 @@ This is replaced with an absolute path of the real directory.
 
 This is replaced with the hostname.
 
+Any other C<%>I<char> variable is the same supported in the B<strftime>(3) function.
+
 =back
 
 =head1 AUTODIR STARTUP
@@ -349,7 +351,7 @@ Some examples of run of B<autodir> with different modules are the following snip
 
 =over 4
 
-B<autofs>(8), B<mount>(8), B<chmod>(1)
+B<autofs>(8), B<mount>(8), B<chmod>(1), B<strftime>(3)
 
 =back
 
