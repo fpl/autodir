@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-autodir - A daemon to create dynamically directories for users/groups and
+autodir - A daemon to create directories for users/groups dynamically and
 mount/umount them automagically
 
 =head1 SYNOPSIS
@@ -15,35 +15,36 @@ autodir [B<-d> I<directory>] [B<-m> I<module-path>] [B<-o> I<module-opts>]
 
 B<autodir> is a daemon based on the kernel autofs module, helpful to
 dynamically manage home/group directories, usually for user accounts from a
-centralized database like LDAP, SQL, NIS.
+centralized database like LDAP, SQL, and NIS.
 
 It also has transparent backup features at unmount time and the advantage of
 not depending on systemd to work.
 
-B<Autodir> uses a virtual mount point to bind users/groups real paths to a common tree
-(e.g., the usual C</home> path is the virtual path generally used for users' home, which
-are created elsewhere when needed). The real paths are typically organized in multi-level
-subdirs for efficiency. The real path is created automatically when requested, including
-the usual skeleton files copying.
+B<Autodir> uses a virtual mount point to bind users/groups real paths to a
+common tree (e.g., the usual C</home> path is the virtual path generally used
+for users' homes, which are created elsewhere when needed). Real paths are
+typically organized in multi-level subdirs for efficiency. They are
+automatically created when requested, including the usual skeleton files
+copying.
 
-The virtual mount point is managed via the kernel B<autofs> module, so every user/group
-directory is monted and unmounted dinamically after a certain lapse of time of inactivity.
-After unmount, B<autodir> can also optionally run a backup program for the just unmounted
-directory. 
+The virtual mount point is managed via the kernel B<autofs> module, so every
+user/group directory is mounted and unmounted dynamically after a certain lapse
+of time of inactivity.  After unmounting, B<autodir> can also optionally run a
+backup program for the just unmounted directory.
 
 =head1 OPTIONS
 
 Autodir accepts a series of common options and a certain number of sub-options for
-each of its modules in way similar to that used in mount(8).
+each of its modules in a way similar to that used in mount(8).
 
 =over 4
 
 =item B<-d> I<directory>
 
-Specifies the virtual base directory, i.e. the mount point for the autofs filesystem.
-If I<dir> does not exist, it will be created. An absolute directory path is expected
-for this option. The default path is generally C</autohome>, but it can change on the basis
-of distribution.
+Specifies the virtual base directory, i.e., the mount point for the autofs
+filesystem.  If I<dir> does not exist, it will be created. An absolute directory
+path is expected for this option. The default path is generally C</autohome>,
+but it can change on the basis of distribution.
 
 =item B<-m> I<module-path>
 
@@ -57,7 +58,7 @@ for I<seconds> seconds, it will be unmounted.
 
 =item B<-l> I<file>
 
-Full path to a file where B<autodir> will write its process id (PID).
+Full path to a file where B<autodir> will write its process ID (PID).
 
 =item B<-n>
 
@@ -69,13 +70,13 @@ Do not kill the backup process, but do NOT wait for it to finish.
 
 =item B<-o> I<module-opts>
 
-A comma-separeted list of options are passed to the module. This options
+A comma-separated list of options is passed to the module. This option
 passing syntax is similar to that of the B<mount>(8) command with its B<-o> option. See
 the module-specific documentation for more information.
 
 =item B<-f>
 
-Run in the foreground and log all messages to the console. Helpful for debugging purpose
+Run in the foreground and log all messages to the console. Helpful for debugging purposes
 and to see how autodir works.
 
 =item B<-b> I<program>
@@ -100,12 +101,12 @@ Use verbose logging.
 Whenever a virtual directory is not used for a period of time, it is assumed
 inactive and is unmounted. Then, a backup is immediately started. With this
 option, you can specify to wait I<seconds> before the backup starts. If this
-option is absent, the backup will start immediately.
+option is absent, the backup will begin immediately.
 
 =item B<-p> I<number>
 
-Backup process priority. This value is from 1-40, with 1 being highest priority
-and 40 being lowest. The default value is 30.
+Backup process priority. This value is from 1-40, with 1 being the highest priority
+and 40 being the lowest. The default value is 30.
 
 =item B<-c> I<number>
 
@@ -117,20 +118,20 @@ The default value is 150.
 =head1 MODULE-SPECIFIC AUTODIR OPTIONS
 
 Multiple modules can plugged at run-time via the B<-m> option. For each of them
-a few options can be used to manage multiple aspects of their configuration. 
-Those per-module options are passed as list of comma-separated strings
-argument for the B<-o> general option, in a way similar to the B<mount>(8) 
+a few options can be used to manage various aspects of their configuration.
+Those per-module options are passed as a list of comma-separated strings
+argument for the B<-o> general option, in a way similar to the B<mount>(8)
 command.
 
 =head2 Module autohome.so
 
-This module is used to deal with users' homes, by creating them when requested,
+This module is used to deal with users' homes by creating them when requested,
 even for multi-host shared accounts, as in the case of NIS, LDAP or SQL-based
 ones. It is not requested that the user log on once, as in the case of other
 systems of autocreation of the user's home. It is also capable of populating the
 home with usual skeleton files. The real path of the users' home (e.g.
 C</data/people/u/us/username>) is bound to a virtual directory mount point, such
-as C</home/username>.  The home remains bound until in use, with a specific
+as C</home/username>. The home remains bound until in use, with a specific
 timeout for inactivity.
 
 =head3 Accepted options
@@ -143,7 +144,7 @@ The real base directory to use for all users' homes.
 
 =item B<level=>I<number>
 
-The real directory organizaton level. Autohome creates a sub-tree that uses the
+The real directory organization level. Autohome creates a sub-tree that uses the
 first 1 or 2 initial letters of the usernames to optimize access times in case of
 a database of thousands of users. For instance, the C<username> home directory will
 be created under C</real/path/u/us/> if I<level>=2 or under C</real/path> if
@@ -164,15 +165,15 @@ Mode to use for home directory creation. See B<chmod>(8) for information.
 
 =item B<nocheck>
 
-Do no monitor directory modes.
+Do not monitor directory modes.
 
 =item B<noskelcheck>
- 
+
 Do not check skeleton directory contents while copying.
 
 =item B<nohomecheck>
 
-Do not check if directory to be created really is the home directory of the user.
+Do not check if the directory to be created is the user's home directory.
 
 =item B<group>=I<gid>
 
@@ -184,22 +185,22 @@ User ID (UID) to use for every home directory.
 
 =item B<fastmode>
 
-Try to be fast. skipping everything else.
+Try to be fast. Skipping everything else.
 
 =item B<renamedir>
 
-Rename directory to copy all those home dirs with uid mismatch/stale homes.
+Rename the directory to copy all those home dirs with uid mismatch/stale homes.
 
 =back
 
 =head2 Module autogroup.so
 
-This module is used to deal with groups' homes, by creating them when request,
+This module is used to deal with groups' homes by creating them when requested,
 even for multi-host shared accounts, as in the case of NIS, LDAP or SQL-based
-ones. This is a helpful module that allows creating per-group common directories
+ones. This is a helpful module that allows the creating per-group common directories
 on demand. The real path of the groups' directory (e.g.
 C</data/groups/g/gr/group>) is bound to a virtual directory mount point, such
-as C</share/group>.  The group directory remains bound until in use, with a specific
+as C</share/group>. The group directory remains bound until in use, with a specific
 timeout for inactivity.
 
 =head3 Accepted options
@@ -212,7 +213,7 @@ Specify the real base directory for groups.
 
 =item B<level=>I<number>
 
-Real directory hierarchy organization level, as for I<autohome>. Default level is 2.
+Real directory hierarchy organization level, as for I<autohome>. The default level is 2.
 
 =item B<nopriv>
 
@@ -224,7 +225,7 @@ Mode to use for group directory creation. See B<chmod>(1) for more information.
 
 =item B<nocheck>
 
-Do no monitor directory permissions.
+Do not monitor directory permissions.
 
 =item B<owner=>I<uid>
 
@@ -247,11 +248,11 @@ Rename dir to copy all those group dirs with gid mismatch/stale.
 =head2 Module automisc.so
 
 This is the most generic module that can be used to bind autodir
-to a generic namespace. At any access to a bound directory it
-creates a new sub-directory if missing and assigns it to a 
+to a generic namespace. Any access to a bound directory
+creates a new sub-directory if missing and assigns it to a
 specific owner and group with a pre-defined access mode. It is
 generally helpful in case of special access to a special
-namespace managed by other programs, not for interactive use cases, 
+namespace managed by other programs, not for interactive use cases,
 when a user could inadvertently create tons of subdirs by mistake.
 
 =head3 Accepted options
@@ -260,25 +261,25 @@ when a user could inadvertently create tons of subdirs by mistake.
 
 =item B<realpath>=I<path>
 
-The real base directory where all sub-dirs namespace will be created.
+The real base directory where all subdirs namespace will be created.
 
 =item B<level>=I<number>
 
-The level of organization of sub-dirs under the real directory, as in case
+The level of organization of sub-dirs under the real directory, as in the case
 of I<autohome> or I<autogroup>. This is a number starting from 0.
-Default level is 2.
+The default level is 2.
 
 =item B<owner>=I<uid>
 
-The owner of all directories created. Default is C<nobody>.
+The owner of all directories created. The default is C<nobody>.
 
 =item B<group>=I<gid>
 
-The group of all directoru created. Default is C<nogroup>.
+The group of all directory created. The default is C<nogroup>.
 
 =item B<mode>=I<octal-mode>
 
-The creation mode of all directories. See B<chmod>(1) for information. 
+The creation mode of all directories. See B<chmod>(1) for information.
 
 =item B<nocheck>
 
@@ -307,7 +308,7 @@ This is replaced with an absolute path of the real directory.
 
 =item %K
 
-This is replaced with the host name.
+This is replaced with the hostname.
 
 =back
 
@@ -315,8 +316,8 @@ This is replaced with the host name.
 
 B<Autodir> comes with some templates useful to start services at boot time,
 supporting both B<systemd.service>(5) and init(8) SysV/BSD style scripts.
-Debian GNU/Linux and its derivatives already installs required scripts
-that just need to enabled.
+Debian GNU/Linux and its derivatives already install required scripts
+that just need to be enabled.
 
 =head1 EXAMPLES
 
@@ -347,7 +348,7 @@ Some examples of run of B<autodir> with different modules are the following snip
 =head1 SEE ALSO
 
 =over 4
- 
+
 B<autofs>(8), B<mount>(8), B<chmod>(1)
 
 =back
