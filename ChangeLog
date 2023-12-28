@@ -10,6 +10,7 @@
 * Revised for missin headers in some .h file for consistency.
 * Added missing boilerplates for GPL and updated all of them.
 * Added dist/ dir with contributed init script and systemd unit files.
+* Added docbook howto as updated on LDP repository.
 
 2006-08-23 Ramana Enaganti <ramana@intraperson.com>
 

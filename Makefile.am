@@ -1,3 +1,3 @@
 SUBDIRS = src man
 
-EXTRA_DIST = scripts/ dist/
+EXTRA_DIST = scripts/ dist/ doc/
