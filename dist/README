@@ -1,7 +1,7 @@
-The dist/ directory contain contributed stuff useful for distributions.
+The dist/ directory contains contributed stuff useful for distributions.
 
 That includes systemd unit files and an init sysv script taken 
-from Debian which can be adopted by other distributions.
+from Debian, which can be adopted by other distributions.
 The Debian package and its derivatives already use systemd to
 startup autodir and its modules (and used to run it via init
 script until release 11).
