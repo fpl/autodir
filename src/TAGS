@@ -1,0 +1,724 @@
+
+config.h.in,1461
+#undef HAVE_DIRENT_H4,127
+#undef HAVE_DLFCN_H7,206
+#undef HAVE_ERRNO_H10,284
+#undef HAVE_FCNTL_H13,362
+#undef HAVE_GETHOSTNAME16,441
+#undef HAVE_GETOPT19,519
+#undef HAVE_GETSUBOPT22,595
+#undef HAVE_GRP_H25,673
+#undef HAVE_INTTYPES_H28,752
+#undef HAVE_LIBCAP31,833
+#undef HAVE_LIBDL34,908
+#undef HAVE_LIBLTDL37,986
+#undef HAVE_LIBPTHREAD40,1072
+#undef HAVE_LIBRT43,1151
+#undef HAVE_LIMITS_H46,1228
+#undef HAVE_LOCALTIME_R49,1308
+#undef HAVE_MALLOC_H52,1391
+#undef HAVE_MEMCHR55,1466
+#undef HAVE_MEMMOVE58,1540
+#undef HAVE_POLL61,1612
+#undef HAVE_PTHREAD_H64,1689
+#undef HAVE_PWD_H67,1767
+#undef HAVE_SIGNAL_H70,1844
+#undef HAVE_SIGWAIT73,1920
+#undef HAVE_STDARG_H76,1999
+#undef HAVE_STDINT_H79,2079
+#undef HAVE_STDIO_H82,2158
+#undef HAVE_STDLIB_H85,2237
+#undef HAVE_STPCPY88,2312
+#undef HAVE_STRINGS_H91,2391
+#undef HAVE_STRING_H94,2472
+#undef HAVE_SYSLOG_H97,2552
+#undef HAVE_SYS_IOCTL_H100,2635
+#undef HAVE_SYS_MOUNT_H103,2721
+#undef HAVE_SYS_POLL_H106,2806
+#undef HAVE_SYS_STAT_H109,2890
+#undef HAVE_SYS_TIME_H112,2974
+#undef HAVE_SYS_TYPES_H115,3059
+#undef HAVE_UNISTD_H118,3142
+#undef HAVE_VSYSLOG121,3218
+#undef LT_OBJDIR124,3317
+#undef PACKAGE127,3357
+#undef PACKAGE_BUGREPORT130,3452
+#undef PACKAGE_NAME133,3525
+#undef PACKAGE_STRING136,3605
+#undef PACKAGE_TARNAME139,3687
+#undef PACKAGE_URL142,3759
+#undef PACKAGE_VERSION145,3824
+#undef STDC_HEADERS150,4050
+#undef VERSION153,4103
+#undef const156,4180
+
+backup_child.h,41
+#define _BACKUP_CHILD_H_INCLUDED_22,740
+
+backup_pid.h,609
+#define _BACKUP_PID_H_INCLUDED_22,738
+typedef struct backup_pids Backup_pids;27,813
+typedef struct backup_pid 29,854
+	unsigned int hash;31,903
+	char name[name32,923
+	pid_t pid;33,949
+	time_t started;34,977
+	pthread_mutex_t lock;35,994
+	int waiting;36,1017
+	pthread_cond_t wait;37,1031
+	struct backup_pid *next;next39,1054
+	Backup_pids *pids;pids40,1080
+	int pids_idx;41,1100
+	int kill;42,1115
+} Backup_pid;43,1126
+struct backup_pids 45,1141
+	int size;46,1162
+	int count;47,1173
+	Backup_pid **s;s48,1185
+	int free_slot;49,1202
+	int in_use;50,1218
+	Backup_pid *to_free;to_free51,1231
+
+workon.c,889
+#define WORKON_HASH_SIZE 38,1019
+#define WORKON_CACHE_SIZE 39,1049
+typedef struct wentry 41,1081
+	char name[name42,1105
+	unsigned int hash;43,1181
+	int in_use;44,1201
+	pthread_mutex_t wait;45,1214
+	struct wentry *next;next46,1289
+} Wentry;47,1311
+	Wentry *list;list51,1373
+	int count;52,1388
+	pthread_mutex_t lock;53,1400
+} wcache;54,1423
+static Wentry **whash;whash56,1434
+static int whash_size;57,1457
+static int whash_used;58,1480
+static pthread_mutex_t hash_lock;59,1503
+#define wentry_key(61,1538
+static Wentry *wentry_malloc(wentry_malloc66,1677
+static void wentry_free(89,2081
+static void whash_resize(117,2546
+#define WENTRY_LOCATE(153,3204
+int workon_name(167,3541
+void workon_release(222,4675
+static void workon_cleanup(260,5378
+void workon_init(294,5866
+char *autodir_name(autodir_name335,6397
+void *test_th(test_th340,6454
+int main(360,6768
+
+workon.h,24
+#define WORKON_H22,723
+
+miscfuncs.c,342
+char *string_n_copy(string_n_copy34,928
+int check_abs_path(60,1284
+void cary_init(94,1720
+int cary_add(102,1836
+int cary_add_str(113,1998
+int string_to_number(125,2170
+int octal_string2dec(144,2416
+int create_dir(167,2782
+int write_all(222,3828
+unsigned int string_hash(243,4309
+void string_safe(264,4609
+int rename_dir(274,4745
+
+dropcap.c,62
+static void dropcap_discap(34,949
+void dropcap_drop(56,1359
+
+backup.c,951
+#define DFLT_BACK_WAIT	29,868
+#define DFLT_MAX_PROC	32,957
+#define BACKUP_WAIT_MAX	34,985
+static char *backup_path backup_path36,1029
+static int do_backup 37,1059
+static int backup_wait_before 38,1085
+static int backup_wait2finish 39,1120
+static int backup_limit 40,1155
+static int backup_nokill 41,1184
+static int backup_life 42,1214
+void backup_init(44,1243
+void backup_add(54,1475
+void backup_remove(62,1600
+void backup_stop_set(75,1837
+void backup_stop(84,1969
+void backup_option_path(96,2159
+void backup_option_wait(111,2483
+void backup_option_wait2finish(127,2848
+void backup_option_nokill(132,2954
+void backup_option_max_proc(137,3050
+void backup_option_life(146,3300
+char *autodir_name(autodir_name172,3555
+void *test_th(test_th177,3612
+int main(196,3861
+char *autodir_name(autodir_name291,7227
+void *test_th(test_th296,7284
+void *test_th2(test_th2320,7664
+void *test_th3(test_th3344,8069
+int main(368,8476
+
+options.c,1388
+#define MAX_OPTIONS	37,1011
+#define ARG_REQUIRED	39,1037
+#define ARG_NOTREQ	40,1062
+#define OPTION_AUTOFS_DIR	42,1086
+#define OPTION_PID_FILE	43,1117
+#define OPTION_TIME_OUT	44,1147
+#define OPTION_MODULE_PATH	45,1177
+#define OPTION_MODULE_SUBOPT	46,1209
+#define OPTION_BACK_WAIT	47,1243
+#define OPTION_MAX_BPROC	48,1273
+#define OPTION_BPROC_PRI	49,1303
+#define OPTION_BACKUP	50,1333
+#define OPTION_FOREGROUND	51,1361
+#define OPTION_VERSION	52,1392
+#define OPTION_HELP	53,1421
+#define OPTION_USE_LOCKS	54,1447
+#define OPTION_LOCK_DIR	55,1477
+#define OPTION_WAIT4BACKUP	56,1507
+#define OPTION_NO_KILL	57,1539
+#define OPTION_MULTI_PATH	58,1568
+#define OPTION_MULTI_PREFIX	59,1599
+#define OPTION_VERBOSE_LOG	60,1632
+#define OPTION_BACKUP_LIFE	61,1664
+struct opt_cb{opt_cb63,1697
+	char opch;64,1712
+	char *arg_str;arg_str65,1740
+	int valid;66,1756
+	int req_arg;67,1812
+	void ( *cb cb68,1848
+	int count;72,1903
+	char ostr[ostr73,1915
+	struct opt_cb opt[opt74,1950
+	Cary ca;75,1985
+} options;76,1995
+static struct opt_cb *option_is_exist(option_is_exist78,2007
+#define helpopt(90,2197
+static void option_usage(92,2245
+static void option_help(123,3591
+static void option_version(132,3714
+static void option_call_cbs(142,3893
+static void option_process(158,4169
+#define OREG 188,4846
+static void option_register(190,4876
+void option_init(211,5486
+
+miscfuncs.h,161
+#define MISCFUNCS_H22,726
+typedef struct cary{cary26,771
+	char *array;array27,792
+	int max;28,806
+	int cur;29,816
+} Cary;30,826
+#define cary_len(32,835
+
+backup_queue.c,1892
+#define HASH_SIZE	55,1462
+typedef struct bqueue 57,1485
+	unsigned int hash;58,1509
+	char dname[dname60,1530
+	char dpath[dpath61,1555
+	time_t estamp;62,1580
+	struct bqueue *next;next65,1659
+	struct bqueue *prev;prev66,1681
+	struct bqueue *next_t;next_t69,1760
+	struct bqueue *prev_t;prev_t70,1784
+	int in_bchain;72,1809
+	struct bqueue *bchain_next;bchain_next73,1825
+} Bqueue;74,1854
+	Bqueue **hash;hash77,1881
+	int hash_used;78,1897
+	int hash_size;79,1913
+	time_t wait;81,1930
+	int maxproc;82,1988
+	pthread_mutex_t lock;85,2065
+	pthread_t queue_watch;89,2158
+	int stop;91,2184
+	Bqueue *start_t;start_t94,2264
+	Bqueue *end_t;end_t95,2282
+	Bqueue *cur_t;cur_t96,2298
+	pthread_cond_t bchain_wait;98,2315
+	Bqueue *bchain;bchain99,2344
+} BQ;100,2361
+#define CACHE_MAX 110,2579
+	int count;113,2617
+	Bqueue *list;list114,2629
+	pthread_mutex_t lock;115,2644
+} bcache;116,2667
+static void entry_free(118,2678
+static Bqueue *entry_allocate(entry_allocate143,3105
+#define QUEUE_ENTRY_LOCATE(177,3738
+static Bqueue *queue_entry_locate(queue_entry_locate183,3910
+static void hash_resize(201,4200
+static void queue_entry_release(244,5051
+static int queue_entry_add(282,5902
+static void bchain_process(339,7039
+static void queue_watch_wait(365,7595
+#define BACK_START_MAX	379,7802
+static void *queue_watch_thread(queue_watch_thread382,7849
+void backup_queue_add(436,8986
+int backup_queue_remove(465,9580
+void backup_queue_stop_set(494,10119
+void backup_queue_stop(500,10197
+void backup_queue_init(507,10314
+char *autodir_name(autodir_name542,10958
+void backup_child_init(547,11015
+void backup_child_stop(551,11057
+void backup_child_start(555,11091
+int backup_child_count(561,11219
+void backup_child_kill(566,11269
+void backup_child_wait(572,11362
+void *test_th(test_th579,11453
+void *test_th2(test_th2597,11710
+int main(616,11969
+
+dropcap.h,25
+#define DROPCAP_H22,724
+
+backup.h,35
+#define _BACKUP_H_INCLUDED_22,734
+
+options.h,25
+#define OPTIONS_H22,724
+
+backup_queue.h,41
+#define _BACKUP_QUEUE_H_INCLUDED_22,740
+
+autodir.c,1647
+	char *path;path66,1629
+	int mounted;67,1666
+	int k_pipe;68,1701
+	int ioctlfd;69,1714
+	int time_out;70,1728
+	int proto;71,1743
+	dev_t dev;72,1776
+} autodir;73,1820
+	char name[name76,1848
+        const char *module_name;module_name77,1897
+	pid_t pid;78,1962
+	pid_t pgrp;79,1989
+	int fg;81,2019
+	char *pid_file;pid_file82,2050
+	int shutdown;83,2067
+	int stop;84,2082
+	pthread_t sig_th;85,2093
+	int multi_path;87,2158
+	char multi_prefix;88,2209
+	thread_cache expire_tc;90,2260
+	thread_cache missing_tc;91,2285
+} self;92,2311
+static void autodir_setname(95,2362
+static void send_ready(108,2601
+static void send_fail(114,2791
+#define UMOUNT_ERROR	120,2978
+#define UMOUNT_SUCCESS	121,3002
+#define UMOUNT_NOCHANGE	122,3028
+static int umount_dir(125,3096
+static int umount_all(160,3810
+static void mount_autodir(193,4435
+static int poll_read(237,5732
+#define SEND_FAIL	284,6490
+#define SEND_READY	285,6511
+static void missing_exit(288,6574
+static void handle_missing(302,6892
+static void handle_expire(429,10385
+static void handle_events(495,11861
+static void become_daemon(535,12752
+static void write_pidfile(568,13483
+static void *signal_handle(signal_handle586,13854
+static void signal_block(615,14567
+static void autodir_clean(624,14851
+char *autodir_name(autodir_name648,15304
+int main(653,15355
+#define DFLT_TIME_OUT	758,17931
+void autodir_option_path(760,17970
+void autodir_option_pidfile(769,18233
+void autodir_option_timeout(778,18473
+void autodir_option_fg(786,18717
+void autodir_option_multipath(791,18804
+#define DEFLT_MULTI_PREFIX	796,18906
+void autodir_option_multiprefix(798,18938
+
+autodir.h,195
+#define AUTODIR_H23,725
+#define AUTODIR_VERSION	27,785
+#define AUTODIR_VERSION	29,832
+#define AUTODIR_PROTO_MIN 33,899
+#define AUTODIR_PROTO_MAX 34,927
+#define AUTODIR_PROTO_DEFAULT 35,955
+
+backup_fork.c,434
+#define DFLT_PRI	36,1079
+#define PRIORITY_MAX	38,1101
+#define PRIORITY_MIN	39,1125
+static int priority;41,1151
+static void reset_signals(43,1173
+static void backup_exec(54,1509
+pid_t backup_fork_new(76,1958
+int backup_waitpid(99,2406
+void backup_soft_signal(150,3363
+void backup_fast_kill(155,3430
+void backup_kill(161,3546
+void backup_fork_option_pri(186,4040
+char *autodir_name(autodir_name203,4442
+int main(208,4499
+
+backup_fork.h,40
+#define _BACKUP_FORK_H_INCLUDED_22,739
+
+time_mono.c,393
+clockid_t clockid 33,890
+static int initialized 36,934
+#undef _POSIX_MONOTONIC_CLOCK41,1011
+#undef _POSIX_TIMERS44,1069
+time_t time_mono(49,1112
+struct timespec *thread_cond_timespec(thread_cond_timespec67,1508
+struct timespec *mono_timespec(mono_timespec84,1978
+void mono_nanosleep(106,2555
+void time_mono_init(125,2971
+char *autodir_name(autodir_name147,3420
+int main(152,3477
+
+time_mono.h,27
+#define TIME_MONO_H22,726
+
+thread.c,537
+#define _GNU_SOURCE25,754
+#define THREAD_STACKSZ 41,1089
+#define THREAD_STACKSZ	43,1135
+static pthread_attr_t cmn_attr;47,1248
+static pthread_attr_t join_attr;48,1280
+pthread_mutexattr_t common_mutex_attr;50,1314
+pthread_condattr_t common_cond_attr;51,1353
+static void thread_attribute_init(53,1391
+static void mutexattr_init(76,2253
+static void condattr_init(95,3097
+void thread_init(118,4023
+#define DEFAULT_RETRY_WAIT	130,4267
+pthread_t thread_new_wait(137,4419
+int thread_new(157,4803
+int thread_new_joinable(174,5168
+
+module.c,585
+#define _MODULE_C_23,782
+#define SYMBOL_MODULE_INIT	35,982
+#define SYMBOL_MODULE_DIR	36,1024
+#define SYMBOL_MODULE_DOWORK	37,1064
+#define SYMBOL_MODULE_CLEAN	38,1110
+	lt_dlhandle handle;44,1254
+	char *mod_path;mod_path47,1299
+	char *mod_subopt;mod_subopt48,1316
+} module;49,1335
+static module_info *modinfo;modinfo51,1346
+static lt_ptr module_symbol(58,1578
+static void module_check(69,1804
+static void module_clean(91,2402
+void module_load(97,2492
+const char *module_name(module_name132,3552
+void module_option_modpath(139,3678
+void module_option_modopt(149,3957
+
+mpacket.c,330
+#define PACKET_CACHE_MAX 32,900
+	Packet *list;list35,959
+	int count;36,974
+	pthread_mutex_t lock;37,986
+} pcache;38,1009
+static Packet *packet_get_free_list(packet_get_free_list42,1107
+Packet *packet_allocate(packet_allocate69,1624
+void packet_free(87,1927
+static void packet_clean(106,2227
+void packet_init(120,2407
+
+thread.h,92
+#define THREADS_H22,724
+#define thread_mutex_init(29,856
+#define thread_cond_init(30,937
+
+module.h,176
+#define MODULE_H22,723
+typedef struct module_info 24,741
+	const char *name;name25,770
+	int protocol;26,789
+} module_info;27,804
+#define MODULE_PROTOCOL_SUPPORTED 30,880
+
+mpacket.h,185
+#define MPACKET_H22,724
+typedef struct packet Packet;24,743
+struct packet 31,874
+	union autofs_packet_union ap;32,890
+	struct packet *next;next33,921
+	thread_cache *tc;tc34,943
+
+backup_argv.c,536
+#define ARG_STATIC	36,1040
+#define ARG_DYNAMIC	37,1062
+#define HOSTNAME_LEN	39,1086
+#define ARG_BUF_SIZE	41,1112
+typedef struct barg 45,1230
+	char *arg;arg46,1252
+	int type;47,1264
+	struct barg *next;next48,1275
+} Barg;49,1295
+	int count;52,1319
+	Barg *end;end53,1331
+	Barg *start;start54,1343
+} barg_list;55,1357
+static char hostname[hostname57,1371
+static void backarg_add(65,1587
+static int backarg_expand(91,2109
+int backup_argv_get(147,3154
+static void backarg_clean(202,4266
+void backup_argv_init(217,4440
+
+lockfile.c,1526
+#define LOCKFILE_HASH_SIZE 38,1169
+#define LOCKFILE_CACHE_SIZE 41,1230
+#define DEFAULT_LOCKDIR	43,1262
+typedef struct lentry 45,1299
+	char name[name46,1323
+	char path[path47,1351
+	int fd;48,1379
+	unsigned int hash;49,1388
+	struct lentry *next;next50,1408
+} Lentry;51,1430
+	Lentry *list;list55,1492
+	int count;56,1507
+	pthread_mutex_t lock;57,1519
+} lcache;58,1542
+static Lentry **lhash;lhash60,1553
+static pthread_mutex_t hash_lock;61,1576
+static int lockfiles;62,1646
+static char *lockdir;lockdir63,1699
+static char spid[spid64,1749
+static int spid_len;65,1797
+static int lhash_size;67,1843
+static int lhash_used;68,1866
+static int lockstop 70,1890
+static Lentry *lentry_malloc(lentry_malloc77,2091
+static void lentry_free(100,2495
+#define lentry_key(127,2979
+static void lhash_resize(129,3024
+#define LENTRY_LOCATE(165,3662
+static Lentry* lockfile_add2hash(183,4159
+static Lentry *lockfile_unhash(lockfile_unhash237,5210
+static int exclusive_lock(276,5957
+static int lockfile_sleep(301,6624
+static int shared_lock(314,6761
+int lockfile_create(356,7767
+void lockfile_remove(442,9639
+static void free_hash(469,10172
+static void lockfile_hash_clean(494,10605
+static void lockfile_hash_init(516,10900
+static void lockfile_clean(535,11292
+void lockfile_init(542,11390
+void lockfile_stop_set(579,12348
+void lockfile_option_lockdir(586,12462
+void lockfile_option_lockfiles(601,12804
+char *autodir_name(autodir_name625,12999
+void *test_th(test_th630,13056
+int main(656,13545
+
+backup_argv.h,29
+#define BACKUP_ARGV_H23,729
+
+lockfile.h,26
+#define LOCKFILE_H22,725
+
+multipath.c,836
+#define MULTIPATH_HASH_SIZE 41,1219
+#define MULTIPATH_CACHE_SIZE 44,1282
+typedef struct mentry 46,1317
+	char name[name47,1341
+	int count;48,1369
+	unsigned int hash;49,1381
+	struct mentry *next;next50,1401
+} mentry;51,1423
+	mentry *list;list55,1485
+	int count;56,1500
+} mcache;57,1512
+static mentry **mhash;mhash59,1523
+static int mhash_size;60,1546
+static int mhash_used;61,1569
+static pthread_mutex_t hash_lock;62,1592
+#define mentry_key(64,1663
+static mentry *mentry_malloc(mentry_malloc71,1846
+static void mentry_free(87,2110
+static void mhash_resize(103,2342
+#define MENTRY_LOCATE(139,2992
+int multipath_inc(153,3379
+int multipath_dec(199,4236
+static void multipath_clean(237,4925
+void multipath_init(272,5366
+char *autodir_name(autodir_name313,5877
+void *test_th(test_th318,5934
+int main(338,6252
+
+expire.c,796
+#define EXPIRE_MAX	35,923
+#define EXPIRE_MAX_THREADS	37,948
+	pthread_t main;40,995
+	pthread_t threads[threads41,1012
+	pthread_mutex_t lock;42,1054
+	int cur;43,1077
+	int stop;44,1087
+	int ioctlfd;45,1098
+        int *shutdown;shutdown46,1112
+} expire;47,1135
+#define DEFAULT_LIFE	49,1146
+#define EXPIRE_MULTI_EXTRA(56,1258
+#define EXPIRE_MULTI(57,1315
+#define EXPIRE_MULTI_EXTRA(61,1377
+#define EXPIRE_MULTI(63,1470
+static void *extra_expire_mounts(extra_expire_mounts68,1612
+static void start_extra_expire_thread(132,2934
+static void wait_extra_expirethread(157,3519
+static void *main_expire_mounts(main_expire_mounts172,3944
+void expire_start(204,4599
+void expire_stop_set(225,5103
+void expire_stop(232,5229
+char *autodir_name(autodir_name251,5320
+int main(256,5377
+
+multipath.h,27
+#define MULTIPATH_H22,726
+
+expire.h,24
+#define EXPIRE_H22,723
+
+msg.c,664
+#define MSG_CONSOLE	36,978
+#define MSG_SYSLOG	37,1001
+#define MSG_MASK 39,1024
+	int priority;45,1131
+	const char *tag;tag46,1146
+} msgmap[msgmap47,1164
+	int msg_which;61,1617
+	int slog_init;62,1650
+	int verbose_log;63,1691
+	char *modname_prefix;modname_prefix64,1709
+	pthread_mutex_t strerror_lock;65,1732
+} mg;66,1764
+static void msg_console(68,1771
+static void msg_syslog(85,2170
+void msglog(98,2575
+static void msg_clean(147,3542
+void msg_init(156,3710
+void msg_console_on(169,3972
+void msg_console_off(174,4035
+void msg_syslog_on(179,4100
+void msg_syslog_off(189,4271
+void msg_modname_prefix(194,4334
+void msg_option_verbose(201,4489
+
+msg.h,242
+#define MSG_H22,713
+#define LOG_ERRNO 30,827
+#define MSG_BUFSZ 32,850
+	MSG_FATAL 35,881
+	MSG_EMERG,36,897
+	MSG_ALERT,37,909
+	MSG_CRIT,38,921
+	MSG_ERR,39,932
+	MSG_WARNING,40,942
+	MSG_NOTICE,41,956
+	MSG_INFO,42,969
+	MSG_DEBUG43,980
+
+thread_cache.c,337
+static Packet *get_cache(get_cache39,1111
+#define MAX_REUSE 73,2211
+#define MAX_REUSE 75,2237
+static void *thread_cache_thread(thread_cache_thread80,2360
+void thread_cache_new(112,3059
+void thread_cache_init(162,4429
+void thread_cache_stop(187,5079
+char *autodir_name(autodir_name229,5760
+void cb(234,5814
+int main(240,5870
+
+thread_cache.h,538
+#define THREAD_CACHE_H22,729
+typedef struct thread_cache thread_cache;24,753
+struct thread_cache 29,839
+        pthread_mutex_t lock;30,861
+        int stop;31,891
+        void (*cb)cb34,950
+        int thread_count;37,1022
+        int pending_count;41,1170
+        pthread_cond_t count_cond;43,1198
+        int thread_waiting;46,1280
+	int max_thread_wait;49,1393
+        pthread_cond_t waiting_cond;50,1415
+        Packet **pkt_slots;pkt_slots53,1470
+	int n_slots;54,1498
+        int in;55,1536
+        int out;56,1573
+
+backup_child.c,1136
+static Backup_pid **hash;hash39,1096
+static int hash_size;40,1122
+static int hash_used;41,1144
+static pthread_mutex_t hash_lock;42,1166
+static pthread_t backup_monitor_th;43,1200
+static int stop;44,1236
+static int backup_life;45,1253
+#define entry_key(47,1278
+#define ENTRY_LOCATE(49,1323
+static int backup_child_add(63,1654
+static int backup_child_add(108,2613
+static pid_t get_pid(149,3441
+#define PTR_LOCATE(195,4510
+static void remove_pid(206,4747
+static pid_t wait_pid(234,5286
+static void *backup_monitor_thread(backup_monitor_thread259,5850
+int backup_child_running(331,7172
+void backup_child_kill(347,7445
+void backup_child_wait(359,7627
+int backup_child_count(376,7913
+void backup_child_start(387,8086
+void backup_child_init(398,8311
+void backup_child_stop_set(418,8816
+static void backup_signal_all(423,8867
+static void backup_kill_all(444,9265
+void backup_child_stop(469,9737
+void backup_kill(495,9933
+int backup_waitpid(501,10055
+pid_t backup_fork_new(508,10213
+char *autodir_name(autodir_name517,10360
+void *test_th(test_th522,10417
+void *test_th2(test_th2540,10681
+int main(558,10937
+
+backup_pid.c,793
+#define CACHE_MAX 32,900
+	pthread_mutex_t lock;35,938
+	Backup_pid *list;list36,961
+	int count;37,980
+} bcache;38,992
+static void entry_free(40,1003
+static Backup_pid *entry_allocate(entry_allocate65,1550
+static Backup_pids pids1;109,2396
+static Backup_pids pids2;110,2422
+	pthread_mutex_t lock;113,2465
+	Backup_pids *pids1;pids1114,2488
+	Backup_pids *pids2;pids2115,2509
+} pid_holder;116,2530
+void backup_pid_init(118,2545
+Backup_pids *backup_pids_get(backup_pids_get144,3104
+void backup_pids_unget(165,3495
+static int free_slot_get(194,4109
+Backup_pid *backup_pidmem_allocate(backup_pidmem_allocate214,4429
+void backup_pidmem_free(242,4988
+char *autodir_name(autodir_name274,5449
+void *test_th(test_th279,5506
+void *test_th2(test_th2295,5733
+int main(323,6147
+
+/home/frankie/github/autodir/src/modules/TAGS,include

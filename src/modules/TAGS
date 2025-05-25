@@ -1,0 +1,181 @@
+
+autogroup.c,1892
+#define MODULE_NAME	40,1126
+#define MODULE_PROTOCOL	41,1160
+#define SUB_OPTION_REALPATH	50,1379
+#define SUB_OPTION_LEVEL	54,1458
+#define SUB_OPTION_NOPRIV	57,1530
+#define SUB_OPTION_MODE	60,1612
+#define SUB_OPTION_NOCHECK	63,1687
+#define SUB_OPTION_OWNER	66,1762
+#define SUB_OPTION_GROUP	69,1833
+#define SUB_OPTION_FASTMODE	72,1898
+#define SUB_OPTION_RENAMEDIR	75,2007
+#define DFLT_AUTOGROUP_REALPATH	80,2143
+#define DFLT_AUTOGROUP_LEVEL	81,2192
+#define DFLT_AUTOGROUP_NOPRIV	82,2224
+#define DFLT_AUTOGROUP_MODE	83,2257
+module_info autogroup_info 103,2694
+	char realpath[realpath107,2799
+	char renamedir[renamedir108,2829
+	int level;109,2860
+	int nopriv;110,2872
+	int nocheck;111,2885
+	int fastmode;112,2899
+	mode_t mode;113,2914
+	uid_t owner;114,2928
+	gid_t group;115,2942
+} ag_conf;116,2956
+static long int grp_bufsz;118,2968
+static long int pwd_bufsz;119,2995
+static const char *path_option_check(path_option_check121,3023
+static int level_option_check(130,3311
+#define MODE_ALL	143,3626
+static int mode_option_check(150,3741
+static uid_t owner_option_check(183,4570
+static gid_t group_option_check(200,4892
+static void option_process(215,5197
+		OPTION_REALPATH_IDX 219,5264
+		OPTION_LEVEL_IDX,220,5291
+		OPTION_NOPRIV_IDX,221,5311
+		OPTION_MODE_IDX,222,5332
+		OPTION_NOCHECK_IDX,223,5351
+		OPTION_OWNER_IDX,224,5373
+		OPTION_GROUP_IDX,225,5393
+		OPTION_FASTMODE_IDX,226,5413
+		OPTION_RENAMEDIR_IDX,227,5436
+		END228,5460
+static void autogroup_conf_init(300,7230
+#define TME_FORMAT 344,8368
+static int create_group_dir(346,8421
+module_info *module_init(module_init440,10594
+void module_dir(476,11518
+static int is_user_private_group(499,11992
+static int get_group_info(526,12467
+int module_dowork(550,13053
+void module_clean(582,13674
+char *autodir_name(autodir_name600,13772
+void *test_th(test_th605,13829
+int main(622,14163
+
+autohome.c,2426
+#define MODULE_NAME	42,1146
+#define MODULE_PROTOCOL	43,1179
+#define SUB_OPTION_LEVEL	50,1399
+#define SUB_OPTION_SKEL	53,1460
+#define SUB_OPTION_NOSEKL	56,1520
+#define SUB_OPTION_REALPATH	59,1581
+#define SUB_OPTION_MODE	62,1666
+#define SUB_OPTION_NOCHECK	65,1741
+#define SUB_OPTION_NOSKELCHECK	68,1835
+#define SUB_OPTION_NOHOMECHECK	72,1959
+#define SUB_OPTION_GROUP	75,2041
+#define SUB_OPTION_OWNER	78,2111
+#define SUB_OPTION_FASTMODE	81,2191
+#define SUB_OPTION_RENAMEDIR	84,2305
+#define DFLT_AUTOHOME_REALDIR	90,2446
+#define DFLT_AUTOHOME_SKELDIR	91,2493
+#define DFLT_AUTOHOME_LEVEL	92,2536
+#define DFLT_AUTOHOME_MODE	93,2567
+module_info autohome_info 112,2987
+#define AUTOHOME_STAMP_FILE	119,3197
+#define READ_BUF_SIZE	120,3242
+#define SKEL_FILE_MAX_COPY	121,3271
+	char realpath[realpath126,3366
+	char skel[skel127,3420
+	char renamedir[renamedir128,3447
+	int noskel;129,3478
+	int level;130,3492
+	int nocheck;131,3505
+	int noskelcheck;132,3520
+	int fastmode;133,3539
+ 	int nohomecheck;134,3554
+	mode_t mode;135,3573
+	gid_t group;136,3588
+	uid_t owner;137,3603
+} ah_conf;138,3617
+static long int pwd_bufsz;140,3629
+static const char *path_option_check(path_option_check142,3657
+static int level_option_check(152,3946
+#define MODE_ALL	170,4272
+static int mode_option_check(177,4387
+static gid_t group_option_check(211,5221
+static uid_t owner_option_check(226,5526
+static void option_process(243,5848
+		OPTION_REALPATH_IDX 247,5915
+		OPTION_SKEL_IDX,248,5942
+		OPTION_NOSKEL_IDX,249,5961
+		OPTION_LEVEL_IDX,250,5982
+		OPTION_MODE_IDX,251,6002
+		OPTION_NOCHECK_IDX,252,6021
+		OPTION_NOSKELCHECK_IDX,253,6043
+		OPTION_OWNER_IDX,254,6069
+		OPTION_GROUP_IDX,255,6089
+		OPTION_FASTMODE_IDX,256,6109
+ 		OPTION_NOHOMECHECK_IDX,257,6132
+		OPTION_RENAMEDIR_IDX,258,6159
+		END259,6183
+static void autohome_conf_init(349,8333
+static int check_file_owner(401,9680
+static int check_dir_owner(435,10354
+static int copy_skel_file(464,10928
+static int copy_skel_dir(566,13140
+static int autohome_stamp(665,15559
+static int copy_skel(682,15834
+#define TME_FORMAT 712,16601
+static int create_home_dir(714,16654
+module_info *module_init(module_init827,19239
+void module_dir(862,20094
+static int get_passwd_info(885,20568
+int module_dowork(915,21315
+void module_clean(952,22222
+char *autodir_name(autodir_name970,22320
+void *test_th(test_th975,22377
+int main(992,22714
+
+automisc.c,1456
+#define MODULE_NAME	46,1256
+#define MODULE_PROTOCOL	47,1289
+#define SUB_OPTION_REALPATH	57,1509
+#define SUB_OPTION_LEVEL	60,1587
+#define SUB_OPTION_USER	63,1642
+#define SUB_OPTION_GROUP	66,1703
+#define SUB_OPTION_MODE	69,1766
+#define SUB_OPTION_NOCHECK	72,1841
+#define SUB_OPTION_FASTMODE	75,1910
+#define DFLT_AUTOMISC_REALPATH	80,1986
+#define DFLT_AUTOMISC_LEVEL	81,2034
+#define DFLT_AUTOMISC_USER	82,2065
+#define DFLT_AUTOMISC_GROUP	83,2102
+#define DFLT_AUTOMISC_MODE	84,2141
+	char realpath[realpath103,2615
+	char *owner;owner104,2645
+	int level;105,2659
+	int nocheck;106,2671
+	uid_t uid;107,2685
+	gid_t gid;108,2697
+	mode_t mode;109,2709
+	int fastmode;110,2723
+} am_conf;111,2738
+module_info automisc_info 113,2750
+static const char *path_option_check(path_option_check117,2815
+static int level_option_check(126,3103
+static void get_owner_uid(137,3408
+static int get_group_gid(154,3723
+#define MODE_ALL	173,4084
+static int mode_option_check(180,4199
+static void option_process(207,4810
+		OPTION_REALPATH_IDX 211,4877
+		OPTION_LEVEL_IDX,212,4904
+		OPTION_USER_IDX,213,4924
+		OPTION_GROUP_IDX,214,4943
+		OPTION_MODE_IDX,215,4963
+		OPTION_NOCHECK_IDX,216,4982
+		OPTION_FASTMODE_IDX,217,5004
+		END218,5027
+static void automisc_conf_init(277,6374
+static int create_misc_dir(327,7733
+module_info *module_init(module_init405,9441
+void module_dir(427,9907
+int module_dowork(451,10430
+void module_clean(468,10755
