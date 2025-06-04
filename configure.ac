@@ -100,7 +100,7 @@ AC_C_CONST
 
 AC_CHECK_FUNCS([vsyslog \
 		getsubopt \
-		getopt \
+		getopt_long \
 		sigwait \
 		poll \
 		gethostname \

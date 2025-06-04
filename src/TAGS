@@ -1,56 +1,56 @@
 
-config.h.in,1461
+config.h.in,1466
 #undef HAVE_DIRENT_H4,127
 #undef HAVE_DLFCN_H7,206
 #undef HAVE_ERRNO_H10,284
 #undef HAVE_FCNTL_H13,362
 #undef HAVE_GETHOSTNAME16,441
-#undef HAVE_GETOPT19,519
-#undef HAVE_GETSUBOPT22,595
-#undef HAVE_GRP_H25,673
-#undef HAVE_INTTYPES_H28,752
-#undef HAVE_LIBCAP31,833
-#undef HAVE_LIBDL34,908
-#undef HAVE_LIBLTDL37,986
-#undef HAVE_LIBPTHREAD40,1072
-#undef HAVE_LIBRT43,1151
-#undef HAVE_LIMITS_H46,1228
-#undef HAVE_LOCALTIME_R49,1308
-#undef HAVE_MALLOC_H52,1391
-#undef HAVE_MEMCHR55,1466
-#undef HAVE_MEMMOVE58,1540
-#undef HAVE_POLL61,1612
-#undef HAVE_PTHREAD_H64,1689
-#undef HAVE_PWD_H67,1767
-#undef HAVE_SIGNAL_H70,1844
-#undef HAVE_SIGWAIT73,1920
-#undef HAVE_STDARG_H76,1999
-#undef HAVE_STDINT_H79,2079
-#undef HAVE_STDIO_H82,2158
-#undef HAVE_STDLIB_H85,2237
-#undef HAVE_STPCPY88,2312
-#undef HAVE_STRINGS_H91,2391
-#undef HAVE_STRING_H94,2472
-#undef HAVE_SYSLOG_H97,2552
-#undef HAVE_SYS_IOCTL_H100,2635
-#undef HAVE_SYS_MOUNT_H103,2721
-#undef HAVE_SYS_POLL_H106,2806
-#undef HAVE_SYS_STAT_H109,2890
-#undef HAVE_SYS_TIME_H112,2974
-#undef HAVE_SYS_TYPES_H115,3059
-#undef HAVE_UNISTD_H118,3142
-#undef HAVE_VSYSLOG121,3218
-#undef LT_OBJDIR124,3317
-#undef PACKAGE127,3357
-#undef PACKAGE_BUGREPORT130,3452
-#undef PACKAGE_NAME133,3525
-#undef PACKAGE_STRING136,3605
-#undef PACKAGE_TARNAME139,3687
-#undef PACKAGE_URL142,3759
-#undef PACKAGE_VERSION145,3824
-#undef STDC_HEADERS150,4050
-#undef VERSION153,4103
-#undef const156,4180
+#undef HAVE_GETOPT_LONG19,524
+#undef HAVE_GETSUBOPT22,605
+#undef HAVE_GRP_H25,683
+#undef HAVE_INTTYPES_H28,762
+#undef HAVE_LIBCAP31,843
+#undef HAVE_LIBDL34,918
+#undef HAVE_LIBLTDL37,996
+#undef HAVE_LIBPTHREAD40,1082
+#undef HAVE_LIBRT43,1161
+#undef HAVE_LIMITS_H46,1238
+#undef HAVE_LOCALTIME_R49,1318
+#undef HAVE_MALLOC_H52,1401
+#undef HAVE_MEMCHR55,1476
+#undef HAVE_MEMMOVE58,1550
+#undef HAVE_POLL61,1622
+#undef HAVE_PTHREAD_H64,1699
+#undef HAVE_PWD_H67,1777
+#undef HAVE_SIGNAL_H70,1854
+#undef HAVE_SIGWAIT73,1930
+#undef HAVE_STDARG_H76,2009
+#undef HAVE_STDINT_H79,2089
+#undef HAVE_STDIO_H82,2168
+#undef HAVE_STDLIB_H85,2247
+#undef HAVE_STPCPY88,2322
+#undef HAVE_STRINGS_H91,2401
+#undef HAVE_STRING_H94,2482
+#undef HAVE_SYSLOG_H97,2562
+#undef HAVE_SYS_IOCTL_H100,2645
+#undef HAVE_SYS_MOUNT_H103,2731
+#undef HAVE_SYS_POLL_H106,2816
+#undef HAVE_SYS_STAT_H109,2900
+#undef HAVE_SYS_TIME_H112,2984
+#undef HAVE_SYS_TYPES_H115,3069
+#undef HAVE_UNISTD_H118,3152
+#undef HAVE_VSYSLOG121,3228
+#undef LT_OBJDIR124,3327
+#undef PACKAGE127,3367
+#undef PACKAGE_BUGREPORT130,3462
+#undef PACKAGE_NAME133,3535
+#undef PACKAGE_STRING136,3615
+#undef PACKAGE_TARNAME139,3697
+#undef PACKAGE_URL142,3769
+#undef PACKAGE_VERSION145,3834
+#undef STDC_HEADERS150,4060
+#undef VERSION153,4113
+#undef const156,4190
 
 backup_child.h,41
 #define _BACKUP_CHILD_H_INCLUDED_22,740
@@ -162,51 +162,54 @@ void *test_th2(test_th2320,7664
 void *test_th3(test_th3344,8069
 int main(368,8476
 
-options.c,1388
-#define MAX_OPTIONS	37,1011
-#define ARG_REQUIRED	39,1037
-#define ARG_NOTREQ	40,1062
-#define OPTION_AUTOFS_DIR	42,1086
-#define OPTION_PID_FILE	43,1117
-#define OPTION_TIME_OUT	44,1147
-#define OPTION_MODULE_PATH	45,1177
-#define OPTION_MODULE_SUBOPT	46,1209
-#define OPTION_BACK_WAIT	47,1243
-#define OPTION_MAX_BPROC	48,1273
-#define OPTION_BPROC_PRI	49,1303
-#define OPTION_BACKUP	50,1333
-#define OPTION_FOREGROUND	51,1361
-#define OPTION_VERSION	52,1392
-#define OPTION_HELP	53,1421
-#define OPTION_USE_LOCKS	54,1447
-#define OPTION_LOCK_DIR	55,1477
-#define OPTION_WAIT4BACKUP	56,1507
-#define OPTION_NO_KILL	57,1539
-#define OPTION_MULTI_PATH	58,1568
-#define OPTION_MULTI_PREFIX	59,1599
-#define OPTION_VERBOSE_LOG	60,1632
-#define OPTION_BACKUP_LIFE	61,1664
-struct opt_cb{opt_cb63,1697
-	char opch;64,1712
-	char *arg_str;arg_str65,1740
-	int valid;66,1756
-	int req_arg;67,1812
-	void ( *cb cb68,1848
-	int count;72,1903
-	char ostr[ostr73,1915
-	struct opt_cb opt[opt74,1950
-	Cary ca;75,1985
-} options;76,1995
-static struct opt_cb *option_is_exist(option_is_exist78,2007
-#define helpopt(90,2197
-static void option_usage(92,2245
-static void option_help(123,3591
-static void option_version(132,3714
-static void option_call_cbs(142,3893
-static void option_process(158,4169
-#define OREG 188,4846
-static void option_register(190,4876
-void option_init(211,5486
+options.c,1526
+#define MAX_OPTIONS	40,1155
+#define ARG_REQUIRED	42,1179
+#define ARG_NOTREQ	43,1202
+#define OPTION_AUTOFS_DIR	45,1224
+#define OPTION_PID_FILE	46,1258
+#define OPTION_TIME_OUT	47,1291
+#define OPTION_MODULE_PATH	48,1324
+#define OPTION_MODULE_SUBOPT 49,1359
+#define OPTION_BACK_WAIT	50,1395
+#define OPTION_MAX_BPROC	51,1428
+#define OPTION_BPROC_PRI	52,1461
+#define OPTION_BACKUP	53,1494
+#define OPTION_FOREGROUND	54,1525
+#define OPTION_VERSION	55,1559
+#define OPTION_HELP	56,1591
+#define OPTION_USE_LOCKS	57,1624
+#define OPTION_LOCK_DIR	58,1657
+#define OPTION_WAIT4BACKUP	59,1690
+#define OPTION_NO_KILL	60,1725
+#define OPTION_MULTI_PATH	61,1757
+#define OPTION_MULTI_PREFIX	62,1791
+#define OPTION_VERBOSE_LOG	63,1827
+#define OPTION_BACKUP_LIFE	64,1862
+struct opt_cb{opt_cb66,1898
+	char opch;67,1913
+	char *arg_str;arg_str68,1958
+	int valid;69,1974
+	int req_arg;70,2047
+	const char *long_name;long_name71,2098
+	const char *description;description72,2148
+	void ( *cb cb73,2200
+	int count;77,2278
+	char ostr[ostr78,2290
+	struct opt_cb opt[opt79,2325
+	Cary ca;80,2360
+	struct option long_options[long_options81,2370
+} options;82,2418
+static struct opt_cb *option_is_exist(option_is_exist84,2430
+#define helpopt(96,2620
+static void option_usage(98,2680
+static void option_help(129,4315
+static void option_version(138,4438
+static void option_call_cbs(148,4617
+static void option_process(164,4893
+#define OREG 203,5839
+static void option_register(205,5869
+void option_init(242,7150
 
 miscfuncs.h,161
 #define MISCFUNCS_H22,726

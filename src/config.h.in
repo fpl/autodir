@@ -15,8 +15,8 @@
 /* Define to 1 if you have the `gethostname' function. */
 #undef HAVE_GETHOSTNAME
 
-/* Define to 1 if you have the `getopt' function. */
-#undef HAVE_GETOPT
+/* Define to 1 if you have the `getopt_long' function. */
+#undef HAVE_GETOPT_LONG
 
 /* Define to 1 if you have the `getsubopt' function. */
 #undef HAVE_GETSUBOPT
