@@ -7,9 +7,15 @@ mount/umount them automagically
 
 =head1 SYNOPSIS
 
-autodir [B<-d> I<directory>] [B<-m> I<module-path>] [B<-o> I<module-opts>]
-[B<-t> I<secs>] [B<-N|-n>] [B<-f>] [B<-l> I<file>] [B<-w> I<secs>] [B<-v>]
-[B<-V>] [B<-h>] [B<-b> I<program>] [B<-p> I<number>] [B<-w> I<secs>] [B<-c> I<number>]
+autodir [B<-d>|B<--directory> I<directory>] [B<-m>|B<--module> I<module-path>]
+[B<-o>|B<--options> I<module-opts>] [B<-t>|B<--timeout> I<secs>]
+[B<-N>|B<--no-kill>|B<-n>|B<--wait-for-backup>] [B<-f>|B<--foreground>]
+[B<-l>|B<--pidfile> I<file>] [B<-w>|B<--wait> I<secs>] [B<-L>|B<--backup-life> I<secs>]
+[B<-b>|B<--backup> I<program>] [B<-p>|B<--priority> I<number>]
+[B<-c>|B<--max-backups> I<number>] [B<-k>|B<--use-locks>]
+[B<-r>|B<--lock-dir> I<dir>] [B<-a>|B<--multipath>]
+[B<-x>|B<--prefix> I<char>] [B<-V>|B<--verbose>]
+[B<-v>|B<--version>] [B<-h>|B<--help>]
 
 =head1 DESCRIPTION
 
@@ -39,79 +45,103 @@ each of its modules in a way similar to that used in mount(8).
 
 =over 4
 
-=item B<-d> I<directory>
+=item B<-d> I<directory>, B<--directory>=I<directory>
 
 Specifies the virtual base directory, i.e., the mount point for the autofs
-filesystem.  If I<dir> does not exist, it will be created. An absolute directory
-path is expected for this option. The default path is generally C</autohome>,
-but it can change on the basis of distribution.
+filesystem.  If I<directory> does not exist, it will be created. An absolute
+directory path is expected for this option. The default path is generally
+C</autohome>, but it can change on the basis of distribution.
 
-=item B<-m> I<module-path>
+=item B<-m> I<module-path>, B<--module>=I<module-path>
 
-Specify a sub-module to be used with B<autodir>, where I<module-path> is the full path
-of a supported module among C<autodir.so>, C<autogroup.so> or C<automisc.so> currently.
+Specify a sub-module to be used with B<autodir>, where I<module-path> is the
+full path of a supported module among C<autohome.so>, C<autogroup.so> or
+C<automisc.so> currently.
 
-=item B<-t> I<seconds>
+=item B<-t> I<seconds>, B<--timeout>=I<seconds>
 
 Expiration time in seconds for virtual directories. If a directory is inactive
 for I<seconds> seconds, it will be unmounted.
 
-=item B<-l> I<file>
+=item B<-l> I<file>, B<--pidfile>=I<file>
 
 Full path to a file where B<autodir> will write its process ID (PID).
 
-=item B<-n>
+=item B<-n>, B<--wait-for-backup>
 
 Do not kill the backup process and wait for it to finish.
 
-=item B<-N>
+=item B<-N>, B<--no-kill>
 
 Do not kill the backup process, but do NOT wait for it to finish.
 
-=item B<-o> I<module-opts>
+=item B<-o> I<module-opts>, B<--options>=I<module-opts>
 
 A comma-separated list of options is passed to the module. This option
-passing syntax is similar to that of the B<mount>(8) command with its B<-o> option. See
-the module-specific documentation for more information.
+passing syntax is similar to that of the B<mount>(8) command with its B<-o>
+option. See the module-specific documentation for more information.
 
-=item B<-f>
+=item B<-f>, B<--foreground>
 
-Run in the foreground and log all messages to the console. Helpful for debugging purposes
-and to see how autodir works.
+Run in the foreground and log all messages to the console. Helpful for
+debugging purposes and to see how autodir works.
 
-=item B<-b> I<program>
+=item B<-b> I<program>, B<--backup>=I<program>
 
-This option is to specify the program to use for backups, as well as options for
-it. The path to I<program> should be absolute.
+Specify the program to use for backups, as well as options for it. The path
+to I<program> should be absolute.
 
-=item B<-h>
-
-Display help about autodir options.
-
-=item B<-v>
-
-Display version information.
-
-=item B<-V>
-
-Use verbose logging.
-
-=item B<-w> I<seconds>
+=item B<-w> I<seconds>, B<--wait>=I<seconds>
 
 Whenever a virtual directory is not used for a period of time, it is assumed
 inactive and is unmounted. Then, a backup is immediately started. With this
 option, you can specify to wait I<seconds> before the backup starts. If this
 option is absent, the backup will begin immediately.
 
-=item B<-p> I<number>
+=item B<-L> I<seconds>, B<--backup-life>=I<seconds>
 
-Backup process priority. This value is from 1-40, with 1 being the highest priority
-and 40 being the lowest. The default value is 30.
+Maximum time in seconds a backup process is allowed to run before being killed.
 
-=item B<-c> I<number>
+=item B<-p> I<number>, B<--priority>=I<number>
 
-This restricts the number of backup processes to I<number> at any given time.
+Backup process priority. This value is from 1-40, with 1 being the highest
+priority and 40 being the lowest. The default value is 30.
+
+=item B<-c> I<number>, B<--max-backups>=I<number>
+
+Restricts the number of backup processes to I<number> at any given time.
 The default value is 150.
+
+=item B<-k>, B<--use-locks>
+
+Enable the use of lock files to coordinate backup processes.
+
+=item B<-r> I<dir>, B<--lock-dir>=I<dir>
+
+Directory path where backup lock files will be stored. An absolute path is
+required.
+
+=item B<-a>, B<--multipath>
+
+Enable multipath support, allowing a single real directory to be bind-mounted
+at multiple virtual paths simultaneously.
+
+=item B<-x> I<char>, B<--prefix>=I<char>
+
+Single character used as the multipath prefix. The default is C<.> (dot).
+Only meaningful together with B<--multipath>.
+
+=item B<-V>, B<--verbose>
+
+Use verbose logging.
+
+=item B<-v>, B<--version>
+
+Display version information.
+
+=item B<-h>, B<--help>
+
+Display help about autodir options.
 
 =back
 

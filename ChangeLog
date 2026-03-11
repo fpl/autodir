@@ -1,6 +1,8 @@
-2025-05-25 Francesco Paolo Lovergine <frankie@debian.org>
+2026-03-11 Francesco Paolo Lovergine <frankie@debian.org>
 
 * Now using getopt_long() from GNU LIBC instead of the traditional getopt().
+* Updated POD file to integrate the long options.
+* Updated for autoconf 2.72 and automake 1.17.
 
 2023-12-28 Francesco Paolo Lovergine <frankie@debian.org>
 
