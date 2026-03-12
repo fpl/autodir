@@ -39,10 +39,16 @@
     </editor>
 
      <!-- All dates specified in ISO "YYYY-MM-DD" format -->
-     <pubdate>2023-12-24</pubdate>
+     <pubdate>2026-03-11</pubdate>
 
      <!-- Most recent revision goes at the top; list in descending order -->
      <revhistory id="revhistory">
+       <revision>
+          <revnumber>1.07</revnumber>
+          <date>2026-03-11</date>
+          <authorinitials>FPL</authorinitials>
+          <revremark>Document GNU long options; add missing options (-V, -a, -x, -L, -n, -N, -k, -r); replace obsolete RPM section with Distribution Integration (systemd and SysV)</revremark>
+       </revision>
        <revision>
           <revnumber>1.06</revnumber>
           <date>2023-12-24</date>
@@ -124,7 +130,7 @@
     <!-- The LDP recommends, but doesn't require, the GFDL --> 
     <para>
      This document, <emphasis>Autodir HOWTO</emphasis>,
-     is originally copyrighted (c) 2004-2007 by <emphasis>Venkata Ramana Enaganti</emphasis>. All successive changes are copyright (c) 2023 by 
+     is originally copyrighted (c) 2004-2007 by <emphasis>Venkata Ramana Enaganti</emphasis>. All successive changes are copyright (c) 2023+ by 
      <emphasis>Francesco Paolo Lovergine</emphasis>
 
 This work is licensed under the Creative Commons Attribution License. To view a copy of this license, visit <ulink url="http://creativecommons.org/licenses/by/2.0">http://creativecommons.org/licenses/by/2.0/</ulink> or send a letter to Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
@@ -499,7 +505,7 @@ This work is licensed under the Creative Commons Attribution License. To view a 
 <sect1>
 	<title>Getting Autodir</title>
 
-    <para>At this moment <emphasis role="bold">Autodir</emphasis> is available in the main archive of Debian GNU/Linux and all its derivative distributions, including Ubuntu. The source repository is hosted on Github at <ulink url="https://github.com/fpl/autodir/">https://github.com/fpl/autodir/</ulink>.</para>
+    <para>At this moment <emphasis role="bold">Autodir</emphasis> binary is available in the main archive of Debian GNU/Linux and all its derivative distributions, including Ubuntu. The source repository is hosted on Github at <ulink url="https://github.com/fpl/autodir/">https://github.com/fpl/autodir/</ulink>.</para>
 
 <para>After downloading the source, follow these simple steps to install :</para>
 
@@ -656,21 +662,27 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 <!-- use xref-->
 <variablelist>
 
-<varlistentry><term><literal>-d</literal></term><listitem><para>Specifies the <emphasis>virtual base directory</emphasis>. If this path does not exist, it will be created. An absolute path is expected for this option.</para></listitem></varlistentry>
+<varlistentry><term><literal>-d</literal>, <literal>--directory=DIR</literal></term><listitem><para>Specifies the <emphasis>virtual base directory</emphasis>. If this path does not exist, it will be created. An absolute path is expected for this option.</para></listitem></varlistentry>
 
-<varlistentry><term id="autodir_t_opt"><literal>-t</literal></term><listitem><para>Expiration timeout for <emphasis>virtual directories</emphasis>. For more details refer to <link linkend="vdexp">virtual directory expiration</link>.</para></listitem></varlistentry>
+<varlistentry><term id="autodir_t_opt"><literal>-t</literal>, <literal>--timeout=SECS</literal></term><listitem><para>Expiration timeout for <emphasis>virtual directories</emphasis>. For more details refer to <link linkend="vdexp">virtual directory expiration</link>.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-m</literal></term><listitem><para>Module to be used with <emphasis role="bold">Autodir</emphasis>. Currently <literal>autohome</literal> and <literal>autogroup</literal> are available. The full path to the module is expected.</para></listitem></varlistentry>
+<varlistentry><term><literal>-m</literal>, <literal>--module=PATH</literal></term><listitem><para>Module to be used with <emphasis role="bold">Autodir</emphasis>. Currently <literal>autohome</literal> and <literal>autogroup</literal> are available. The full path to the module is expected.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-o</literal></term><listitem><para>All suboptions that are to be passed to module are given here. This option passing syntax is similar to that of the <command>mount</command> command with its <literal>-o</literal> option. See specific module sections for more info.</para></listitem></varlistentry>
+<varlistentry><term><literal>-o</literal>, <literal>--options=OPTS</literal></term><listitem><para>All suboptions that are to be passed to module are given here. This option passing syntax is similar to that of the <command>mount</command> command with its <literal>-o</literal> option. See specific module sections for more info.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-f</literal></term><listitem><para>Run in the foreground and log all messages to the console. For debugging purpose and to see how <emphasis role="bold">Autodir</emphasis> works.</para></listitem></varlistentry>
+<varlistentry><term><literal>-f</literal>, <literal>--foreground</literal></term><listitem><para>Run in the foreground and log all messages to the console. For debugging purpose and to see how <emphasis role="bold">Autodir</emphasis> works.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-l</literal></term><listitem><para>This option expects a path name to a file in which <emphasis role="bold">Autodir</emphasis> will write its process id.</para></listitem></varlistentry>
+<varlistentry><term><literal>-l</literal>, <literal>--pidfile=FILE</literal></term><listitem><para>This option expects a path name to a file in which <emphasis role="bold">Autodir</emphasis> will write its process id.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-h</literal></term><listitem><para>Help about all options supported by <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
+<varlistentry><term><literal>-h</literal>, <literal>--help</literal></term><listitem><para>Help about all options supported by <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-v</literal></term><listitem><para>Version information about <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
+<varlistentry><term><literal>-v</literal>, <literal>--version</literal></term><listitem><para>Version information about <emphasis role="bold">Autodir</emphasis>.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-V</literal>, <literal>--verbose</literal></term><listitem><para>Enable verbose logging. Additional mount and unmount activity is written to syslog.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-a</literal>, <literal>--multipath</literal></term><listitem><para>Enable multi-path support. Allows a single real directory to be bind-mounted at multiple virtual paths simultaneously.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-x</literal>, <literal>--prefix=CHAR</literal></term><listitem><para>Single character prefix used to distinguish virtual paths in multi-path mode (<literal>-a</literal>). Default is <literal>.</literal> (dot).</para></listitem></varlistentry>
 
 </variablelist>
 
@@ -684,13 +696,23 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 
 <variablelist>
 
-<varlistentry><term><literal>-b</literal></term><listitem><para>This is the main option to specify the backup program path and arguments to it. The path given should be an absolute path, otherwise <emphasis role="bold">Autodir</emphasis> does not accept it.</para></listitem></varlistentry>
+<varlistentry><term><literal>-b</literal>, <literal>--backup=PROG</literal></term><listitem><para>This is the main option to specify the backup program path and arguments to it. The path given should be an absolute path, otherwise <emphasis role="bold">Autodir</emphasis> does not accept it.</para></listitem></varlistentry>
 
-<varlistentry><term id="autodir_w_opt"><literal>-w</literal></term><listitem><para>Whenever a <emphasis>virtual directory</emphasis> is not used for a period of time, it is assumed inactive and it is unmounted.  After unmounting the directory, whether to launch the backup immediately or to wait some more time is decided with this option. It takes arguments in seconds. It is the <emphasis>minimum</emphasis> time to wait before starting backup after <emphasis>virtual directory</emphasis> expiration. It should not exceed one day.</para></listitem></varlistentry>
+<varlistentry><term id="autodir_w_opt"><literal>-w</literal>, <literal>--wait=SECS</literal></term><listitem><para>Whenever a <emphasis>virtual directory</emphasis> is not used for a period of time, it is assumed inactive and it is unmounted.  After unmounting the directory, whether to launch the backup immediately or to wait some more time is decided with this option. It takes arguments in seconds. It is the <emphasis>minimum</emphasis> time to wait before starting backup after <emphasis>virtual directory</emphasis> expiration. It should not exceed one day.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-p</literal></term><listitem><para>This is the priority to be given to the backup process. <emphasis>This is in the range of 1 to 40 inclusive</emphasis>. Lower value means higher priority and vice versa. The default value is 30.</para></listitem></varlistentry>
+<varlistentry><term><literal>-p</literal>, <literal>--priority=NUM</literal></term><listitem><para>This is the priority to be given to the backup process. <emphasis>This is in the range of 1 to 40 inclusive</emphasis>. Lower value means higher priority and vice versa. The default value is 30.</para></listitem></varlistentry>
 
-<varlistentry><term><literal>-c</literal></term><listitem><para>This restricts the maximum number of backup processes at any given time. The default is 150.</para></listitem></varlistentry>
+<varlistentry><term><literal>-c</literal>, <literal>--max-backups=NUM</literal></term><listitem><para>This restricts the maximum number of backup processes at any given time. The default is 150.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-L</literal>, <literal>--backup-life=SECS</literal></term><listitem><para>Maximum lifetime in seconds for a backup process. A backup still running after this period is killed.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-n</literal>, <literal>--wait-for-backup</literal></term><listitem><para>When a <emphasis>virtual directory</emphasis> is requested again while a backup is running, wait for the backup to finish before remounting instead of killing it.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-N</literal>, <literal>--no-kill</literal></term><listitem><para>Do not kill a running backup and do not wait for it; proceed with remounting immediately.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-k</literal>, <literal>--use-locks</literal></term><listitem><para>Use lock files to prevent two backup processes for the same directory running simultaneously across multiple <emphasis role="bold">Autodir</emphasis> instances.</para></listitem></varlistentry>
+
+<varlistentry><term><literal>-r</literal>, <literal>--lock-dir=DIR</literal></term><listitem><para>Directory where backup lock files are stored. Required when <literal>-k</literal> is used. An absolute path is expected.</para></listitem></varlistentry>
 </variablelist>
 
 <caution><title>Using quotes</title><para>The argument for the <literal>-b</literal> option is includes the absolute backup program path as well as its own arguments. Therefore it is recommended to use single quotes around this argument.</para></caution>
@@ -719,7 +741,7 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 		-t 1000						\
 		-f 						\
 		-o 'realpath=/autohome,level=1,skel=/etc/skel' 	\
-		-l /var/run/autodir.pid
+		-l /run/autodir.pid
 </screen>
 
 <screen>
@@ -729,7 +751,7 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 		-b '/bin/tar cf /tmp/%N%F.tar %L'		\
 		-w 600						\
 		-o 'realpath=/tmp/autohome,level=2,noskel'	\
-		-l /var/run/autodir.pid
+		-l /run/autodir.pid
 </screen>
 
 <screen>
@@ -738,22 +760,115 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 		-t 300						\
 		-b '/bin/tar cf /tmp/%N%F.tar %L'		\
 		-w 86400					\
-		-o 'nopriv,nosetgid,realpath=/var/realbase,level=0' 
+		-o 'nopriv,nosetgid,realpath=/var/realbase,level=0'
+</screen>
+
+<screen>
+# autodir --directory=/home                     \
+        --module=/usr/lib/autodir/autohome.so \
+        --timeout=600                         \
+        --options='realpath=/autohome,level=2,skel=/etc/skel' \
+        --pidfile=/run/autohome.pid
 </screen>
 
 </sect1>
 
-<sect1>
-	<title>RPM specific</title>
+<sect1 id="distintegration">
+    <title>GNU/Linux Distribution Integration</title>
 
-<para><emphasis role="bold">Autodir</emphasis> can be installed from rpms as follows:</para>
-<screen>
-# rpm -ivh autodir-0.28-4.i386.rpm
-</screen>
+  <para>The <filename>dist/</filename> directory in the source tree contains
+  files for integrating <emphasis role="bold">Autodir</emphasis> into
+  GNU/Linux distributions. It provides systemd unit files and a SysV init
+  script, based on the Debian packaging.</para>
 
-<para>When installed from rpms, two startup scripts are provided: <filename>/etc/rc.d/init.d/autohome</filename> and <filename>/etc/rc.d/init.d/autogroup</filename>. The first one is for starting <emphasis role="bold">Autodir</emphasis> with the <literal>autohome</literal> module, the second for starting with the <literal>autogroup</literal> module.</para>
+  <para>Of course, the current Debian binary already setups a pair of unit services for 
+  systemd configuration, for home and group, including helpful environment variables.
+  </para>
 
-<para>The script configuration files <filename>/etc/sysconfig/autohome</filename> and <filename>/etc/sysconfig/autogroup</filename> can be used to specify what options can be passed to <emphasis role="bold">Autodir</emphasis>.</para>
+  <sect2 id="systemd_units">
+    <title>systemd</title>
+
+    <para>Two unit files are provided:</para>
+    <itemizedlist>
+      <listitem><para><filename>dist/systemd/autodir-home.service</filename>
+        — starts <emphasis role="bold">Autodir</emphasis> with the
+        <literal>autohome</literal> module. PID file:
+        <filename>/run/autohome.pid</filename>.</para></listitem>
+      <listitem><para><filename>dist/systemd/autodir-group.service</filename>
+        — starts <emphasis role="bold">Autodir</emphasis> with the
+        <literal>autogroup</literal> module. PID file:
+        <filename>/run/autogroup.pid</filename>.</para></listitem>
+    </itemizedlist>
+
+    <para>Both units are <literal>Type=forking</literal> and order themselves
+    after <literal>network-online.target</literal>,
+    <literal>nss-lookup.target</literal>, <literal>local-fs.target</literal>
+    and <literal>remote-fs.target</literal>. They load configuration from
+    <filename>/etc/default/autodir</filename> via
+    <literal>EnvironmentFile=-/etc/default/autodir</literal> (the leading
+    <literal>-</literal> makes the file optional; built-in defaults apply if
+    it is absent).</para>
+  </sect2>
+
+  <sect2 id="defaultconfig">
+    <title>Configuration file: /etc/default/autodir</title>
+
+    <para>The template <filename>dist/init/autodir.default</filename> is
+    installed as <filename>/etc/default/autodir</filename>. Key
+    variables:</para>
+
+    <variablelist>
+      <varlistentry>
+        <term><literal>RUN_AUTOHOME</literal>, <literal>RUN_AUTOGROUP</literal></term>
+        <listitem><para>Set to <literal>yes</literal> to enable the respective
+        module. Both default to <literal>no</literal>.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><literal>AUTOHOME_HOME</literal>, <literal>AUTOGROUP_HOME</literal></term>
+        <listitem><para>Virtual base directory (<literal>-d</literal>).
+        Defaults: <filename>/home</filename> and
+        <filename>/group</filename>.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><literal>AUTOHOME_TIMEOUT</literal>, <literal>AUTOGROUP_TIMEOUT</literal></term>
+        <listitem><para>Inactivity timeout in seconds (<literal>-t</literal>).
+        The autohome default is 660 seconds (11 minutes, suitable for IMAP/POP
+        mail servers); autogroup defaults to 300 seconds.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><literal>AUTOHOME_MODULE</literal>, <literal>AUTOGROUP_MODULE</literal></term>
+        <listitem><para>Full path to the module shared object
+        (<literal>-m</literal>).</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><literal>AUTOHOME_OPTIONS</literal>, <literal>AUTOGROUP_OPTIONS</literal></term>
+        <listitem><para>Module sub-options passed via <literal>-o</literal>.
+        See the respective module sections for available
+        sub-options.</para></listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>Backup variables</term>
+        <listitem><para>Optional variables <literal>AUTOHOME_BACKUP</literal>,
+        <literal>AUTOHOME_BACKWAIT</literal>,
+        <literal>AUTOHOME_BACKPRI</literal>,
+        <literal>AUTOHOME_MAXBACK</literal> (and their
+        <literal>AUTOGROUP_</literal> counterparts) map to the
+        <literal>-b</literal>, <literal>-w</literal>, <literal>-p</literal>,
+        and <literal>-c</literal> options respectively. They are commented out
+        by default.</para></listitem>
+      </varlistentry>
+    </variablelist>
+  </sect2>
+
+  <sect2 id="sysvinit">
+    <title>SysV init script</title>
+
+    <para>For systems that do not use systemd,
+    <filename>dist/init/autodir.init</filename> provides a traditional SysV
+    init script. It reads the same <filename>/etc/default/autodir</filename>
+    configuration file and honours the <literal>RUN_AUTOHOME</literal> and
+    <literal>RUN_AUTOGROUP</literal> switches.</para>
+  </sect2>
 
 </sect1>
 
