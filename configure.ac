@@ -114,5 +114,12 @@ AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile man/Makefile doc/Mak
 AC_CONFIG_HEADERS([src/config.h])
 
 AC_PATH_PROG([XSLTPROC], [xsltproc])
+if test -z "$XSLTPROC"; then
+    AC_MSG_ERROR([xsltproc not found. Please install xsltproc package and the docbook XML files.])
+fi
+AC_PATH_PROG([POD2MAN], [pod2man])
+if test -z "$POD2MAN"; then
+   AC_MSG_ERROR([pod2man not found. Please install perl package.])
+fi
 
 AC_OUTPUT

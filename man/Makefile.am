@@ -10,4 +10,4 @@ clean-local:
 	-rm -f autodir.8 
 
 autodir.8: autodir.pod
-	pod2man -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8
+	$POD2MAN -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8

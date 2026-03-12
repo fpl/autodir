@@ -218,6 +218,7 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+POD2MAN = @POD2MAN@
 RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
@@ -531,7 +532,7 @@ clean-local:
 	-rm -f autodir.8 
 
 autodir.8: autodir.pod
-	pod2man -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8
+	$POD2MAN -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
