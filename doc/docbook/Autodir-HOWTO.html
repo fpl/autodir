@@ -563,7 +563,7 @@ This work is licensed under the Creative Commons Attribution License. To view a 
 <div class="sect1"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="distintegration"></a>GNU/Linux Distribution Integration</h2></div></div></div>
     
 
-  <p>The <code class="filename">dist/</code> directory in the source tree contains
+  <p>The <code class="filename">packaging/</code> directory in the source tree contains
   files for integrating <span class="bold"><strong>Autodir</strong></span> into
   GNU/Linux distributions. It provides systemd unit files and a SysV init
   script, based on the Debian packaging.</p>
@@ -576,10 +576,10 @@ This work is licensed under the Creative Commons Attribution License. To view a 
     
 
     <p>Two unit files are provided:</p>
-    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">dist/systemd/autodir-home.service</code>
+    <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="filename">packaging/systemd/autodir-home.service</code>
         â starts <span class="bold"><strong>Autodir</strong></span> with the
         <code class="literal">autohome</code> module. PID file:
-        <code class="filename">/run/autohome.pid</code>.</p></li><li class="listitem"><p><code class="filename">dist/systemd/autodir-group.service</code>
+        <code class="filename">/run/autohome.pid</code>.</p></li><li class="listitem"><p><code class="filename">packaging/systemd/autodir-group.service</code>
         â starts <span class="bold"><strong>Autodir</strong></span> with the
         <code class="literal">autogroup</code> module. PID file:
         <code class="filename">/run/autogroup.pid</code>.</p></li></ul></div>
@@ -597,7 +597,7 @@ This work is licensed under the Creative Commons Attribution License. To view a 
   <div class="sect2"><div class="titlepage"><div><div><h3 class="title"><a id="defaultconfig"></a>Configuration file: /etc/default/autodir</h3></div></div></div>
     
 
-    <p>The template <code class="filename">dist/init/autodir.default</code> is
+    <p>The template <code class="filename">packaging/init/autodir.default</code> is
     installed as <code class="filename">/etc/default/autodir</code>. Key
     variables:</p>
 
@@ -623,7 +623,7 @@ This work is licensed under the Creative Commons Attribution License. To view a 
     
 
     <p>For systems that do not use systemd,
-    <code class="filename">dist/init/autodir.init</code> provides a traditional SysV
+    <code class="filename">packaging/init/autodir.init</code> provides a traditional SysV
     init script. It reads the same <code class="filename">/etc/default/autodir</code>
     configuration file and honours the <code class="literal">RUN_AUTOHOME</code> and
     <code class="literal">RUN_AUTOGROUP</code> switches.</p>

@@ -776,7 +776,7 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 <sect1 id="distintegration">
     <title>GNU/Linux Distribution Integration</title>
 
-  <para>The <filename>dist/</filename> directory in the source tree contains
+  <para>The <filename>packaging/</filename> directory in the source tree contains
   files for integrating <emphasis role="bold">Autodir</emphasis> into
   GNU/Linux distributions. It provides systemd unit files and a SysV init
   script, based on the Debian packaging.</para>
@@ -790,11 +790,11 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 
     <para>Two unit files are provided:</para>
     <itemizedlist>
-      <listitem><para><filename>dist/systemd/autodir-home.service</filename>
+      <listitem><para><filename>packaging/systemd/autodir-home.service</filename>
         — starts <emphasis role="bold">Autodir</emphasis> with the
         <literal>autohome</literal> module. PID file:
         <filename>/run/autohome.pid</filename>.</para></listitem>
-      <listitem><para><filename>dist/systemd/autodir-group.service</filename>
+      <listitem><para><filename>packaging/systemd/autodir-group.service</filename>
         — starts <emphasis role="bold">Autodir</emphasis> with the
         <literal>autogroup</literal> module. PID file:
         <filename>/run/autogroup.pid</filename>.</para></listitem>
@@ -813,7 +813,7 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
   <sect2 id="defaultconfig">
     <title>Configuration file: /etc/default/autodir</title>
 
-    <para>The template <filename>dist/init/autodir.default</filename> is
+    <para>The template <filename>packaging/init/autodir.default</filename> is
     installed as <filename>/etc/default/autodir</filename>. Key
     variables:</para>
 
@@ -864,7 +864,7 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
     <title>SysV init script</title>
 
     <para>For systems that do not use systemd,
-    <filename>dist/init/autodir.init</filename> provides a traditional SysV
+    <filename>packaging/init/autodir.init</filename> provides a traditional SysV
     init script. It reads the same <filename>/etc/default/autodir</filename>
     configuration file and honours the <literal>RUN_AUTOHOME</literal> and
     <literal>RUN_AUTOGROUP</literal> switches.</para>
