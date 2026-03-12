@@ -12,5 +12,16 @@ Automounter version 4 (autofs4) has to be enabled when compiling the kernel.
 Debian packaged kernels have it enabled as module.
 
 For more information, consult online docs at
-https://tldp.org/HOWTO/html_single/Autodir-HOWTO/index.html
-or the up-to-date version under the doc/ directory.
+[Autodir-HOWTO](https://tldp.org/HOWTO/html_single/Autodir-HOWTO/index.html)
+or the up-to-date version under the doc/docbook directory.
+
+Note that in order to generate the HTML version of the DocBook documentation
+it is mandatory having xlstproc installed with required styling sheets.
+On Debian you need to install the following packages:
+
+```
+xsltproc 
+docbook-xml 
+docbook-xsl 
+docbook-xsl-ns 
+```
