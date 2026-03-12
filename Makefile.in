@@ -341,7 +341,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = src man doc
-EXTRA_DIST = scripts/ dist/
+EXTRA_DIST = scripts packaging
 all: all-recursive
 
 .SUFFIXES:
