@@ -764,11 +764,11 @@ For example: <command>autodir <option>-d</option> <filename>homedir</filename> <
 </screen>
 
 <screen>
-# autodir --directory=/home                     \
-        --module=/usr/lib/autodir/autohome.so \
-        --timeout=600                         \
-        --options='realpath=/autohome,level=2,skel=/etc/skel' \
-        --pidfile=/run/autohome.pid
+# autodir --directory=/home                                             \
+                --module=/usr/lib/autodir/autohome.so                   \
+                --timeout=600                                           \
+                --options='realpath=/autohome,level=2,skel=/etc/skel'   \
+                --pidfile=/run/autohome.pid
 </screen>
 
 </sect1>
