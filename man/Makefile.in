@@ -532,7 +532,7 @@ clean-local:
 	-rm -f autodir.8 
 
 autodir.8: autodir.pod
-	$POD2MAN -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8
+	$(POD2MAN) -s 8 -c "System Administration" -r "$(PACKAGE) $(VERSION)" autodir.pod >autodir.8
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
