@@ -6,6 +6,7 @@
 * Added rule to autogen HTML page from Docbook XML.
 * The dist/ subdir renamed in packaging, it triggered a curious loop at make dist time.
 * Both xlstproc and pod2man are now checked before use.
+* A better compbination of lazy umount and out-of-signal-handler operations is now adopted.
 
 2023-12-28 Francesco Paolo Lovergine <frankie@debian.org>
 
