@@ -81,7 +81,7 @@ static struct {
 	int fg;		/*stay foreground?*/
 	char *pid_file;
 	int shutdown;
-	int stop;
+	volatile sig_atomic_t stop;
 	pthread_t sig_th; /* independent thread for handling singals*/
 
 	int multi_path; /*multi path feature requested?*/
@@ -142,10 +142,17 @@ static int umount_dir( char *path )
 	{
 		if( umount( path ) )
 		{
-			msglog( MSG_NOTICE|LOG_ERRNO, "umount %s", path );
-
 			if( errno == EBUSY )
+			{
+				if( umount2( path, MNT_DETACH ) )
+					msglog( MSG_NOTICE|LOG_ERRNO, "umount2 MNT_DETACH %s", path );
+				/* Detached from namespace — fall through to rmdir */
+			}
+			else
+			{
+				msglog( MSG_NOTICE|LOG_ERRNO, "umount %s", path );
 				return UMOUNT_NOCHANGE;
+			}
 		}
 	}
 	if( rmdir( path ) )
@@ -251,7 +258,7 @@ static int poll_read( int fd, char *buf, int sz )
 			msglog( MSG_ERR|LOG_ERRNO, "poll_read: poll" );
 			return -1;
 		}
-		if( r == 0 && self.shutdown )
+		if( r == 0 && (self.shutdown || self.stop) )
 			return 0;
 		if( r <= 0 ) continue; /*including errno == EINTR */
 
@@ -604,9 +611,6 @@ static void *signal_handle( void *v )
 		{
 			msglog( MSG_NOTICE, "signal received %d", sig );
                         self.stop = 1;
-                        backup_stop_set();
-                        lockfile_stop_set();
-                        expire_stop_set();
                         return NULL;
 		}
         }
@@ -636,10 +640,6 @@ static void autodir_clean( void )
 
 	if( autodir.k_pipe >= 0 )
 		close( autodir.k_pipe );
-
-	if( autodir.mounted && umount( autodir.path ) )
-		msglog( MSG_ERR|LOG_ERRNO, "autodir_clean: umount %s",
-				autodir.path );
 
 	if( self.pid_file )
 		unlink( self.pid_file );
@@ -748,6 +748,13 @@ int main( int argc, char *argv[] )
 	thread_cache_stop( &self.missing_tc );
 
 	umount_all();
+
+	if( autodir.mounted )
+	{
+		if( umount2( autodir.path, MNT_DETACH ) )
+			msglog( MSG_ERR|LOG_ERRNO, "umount2 %s", autodir.path );
+		autodir.mounted = 0;
+	}
 
 	/* exit calls other cleanup methods*/
         exit( 0 );
