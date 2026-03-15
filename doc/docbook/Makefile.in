@@ -505,7 +505,10 @@ uninstall-am: uninstall-dist_docDATA
 
 
 Autodir-HOWTO.html: Autodir-HOWTO.xml
-	$(XSLTPROC) --nonet -o $@ $(DB2HTML_XSL) $<
+	$(XSLTPROC) --nonet \
+	    --param section.autolabel 1 \
+    	--param section.label.includes.component.label 1 \
+	-o $@ $(DB2HTML_XSL) $<
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
