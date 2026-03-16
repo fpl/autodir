@@ -174,6 +174,7 @@ CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
 DEPDIR = @DEPDIR@
 DLLTOOL = @DLLTOOL@
+DOCBOOK_XSL_PATH = @DOCBOOK_XSL_PATH@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
 ECHO = @ECHO@
@@ -225,6 +226,7 @@ SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
 STRIP = @STRIP@
 VERSION = @VERSION@
+XMLCATALOG = @XMLCATALOG@
 XSLTPROC = @XSLTPROC@
 abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
@@ -281,7 +283,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-DB2HTML_XSL = /usr/share/xml/docbook/stylesheet/docbook-xsl-ns/xhtml/docbook.xsl
 dist_doc_DATA = Autodir-HOWTO.html Autodir-HOWTO.xml
 CLEANFILES = Autodir-HOWTO.html
 all: all-am
@@ -508,7 +509,7 @@ Autodir-HOWTO.html: Autodir-HOWTO.xml
 	$(XSLTPROC) --nonet \
 	    --param section.autolabel 1 \
     	--param section.label.includes.component.label 1 \
-	-o $@ $(DB2HTML_XSL) $<
+	-o $@ $(DOCBOOK_XSL_PATH) $<
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

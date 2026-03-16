@@ -113,13 +113,49 @@ AC_CHECK_FUNCS([vsyslog \
 AC_CONFIG_FILES([Makefile src/Makefile src/modules/Makefile man/Makefile doc/Makefile doc/docbook/Makefile])
 AC_CONFIG_HEADERS([src/config.h])
 
+#
+# What follwos are pre-checks for tools used for generating doc from docbook and the man page.
+#
+
 AC_PATH_PROG([XSLTPROC], [xsltproc])
 if test -z "$XSLTPROC"; then
     AC_MSG_ERROR([xsltproc not found. Please install xsltproc package and the docbook XML files.])
 fi
+
 AC_PATH_PROG([POD2MAN], [pod2man])
 if test -z "$POD2MAN"; then
    AC_MSG_ERROR([pod2man not found. Please install perl package.])
+fi
+
+AC_PATH_PROG([XMLCATALOG], [xmlcatalog])
+if test -z "$XMLCATALOG"; then
+   AC_MSG_ERROR([xmlcatalog not found. Please install xml-core package.])
+fi
+
+if test -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
+    AC_MSG_CHECKING([for DocBook XSL stylesheets])
+    DOCBOOK_XSL_PATH=$($XMLCATALOG /etc/xml/catalog \
+      "http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl" 2>/dev/null | \
+      grep -v "No entry" | head -1)
+    
+    if test -z "$DOCBOOK_XSL_PATH"; then
+        # Fallback to common paths
+        for file in /usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml/docbook.xsl \
+                    /usr/share/sgml/docbook/xsl-ns-stylesheets/docbook.xsl \
+                    /usr/share/sgml/docbook/xsl-stylesheets/dockbook.xsl; do
+            if test -f "$file"; then
+                DOCBOOK_XSL_PATH="$dir"
+                break
+            fi
+        done
+    fi
+    
+    if test -n "$DOCBOOK_XSL_PATH"; then
+        AC_MSG_RESULT([$DOCBOOK_XSL_PATH])
+        AC_SUBST([DOCBOOK_XSL_PATH])
+    else
+        AC_MSG_WARN([DocBook XSL stylesheets not found])
+    fi
 fi
 
 AC_OUTPUT

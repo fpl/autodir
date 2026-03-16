@@ -657,6 +657,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+DOCBOOK_XSL_PATH
+XMLCATALOG
 POD2MAN
 XSLTPROC
 LT_SYS_LIBRARY_PATH
@@ -14035,6 +14037,10 @@ ac_config_files="$ac_config_files Makefile src/Makefile src/modules/Makefile man
 ac_config_headers="$ac_config_headers src/config.h"
 
 
+#
+# What follwos are pre-checks for tools used for generating doc from docbook and the man page.
+#
+
 # Extract the first word of "xsltproc", so it can be a program name with args.
 set dummy xsltproc; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -14084,6 +14090,7 @@ fi
 if test -z "$XSLTPROC"; then
     as_fn_error $? "xsltproc not found. Please install xsltproc package and the docbook XML files." "$LINENO" 5
 fi
+
 # Extract the first word of "pod2man", so it can be a program name with args.
 set dummy pod2man; ac_word=$2
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
@@ -14132,6 +14139,85 @@ fi
 
 if test -z "$POD2MAN"; then
    as_fn_error $? "pod2man not found. Please install perl package." "$LINENO" 5
+fi
+
+# Extract the first word of "xmlcatalog", so it can be a program name with args.
+set dummy xmlcatalog; ac_word=$2
+{ printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+printf %s "checking for $ac_word... " >&6; }
+if test ${ac_cv_path_XMLCATALOG+y}
+then :
+  printf %s "(cached) " >&6
+else case e in #(
+  e) case $XMLCATALOG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_XMLCATALOG="$XMLCATALOG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  case $as_dir in #(((
+    '') as_dir=./ ;;
+    */) ;;
+    *) as_dir=$as_dir/ ;;
+  esac
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir$ac_word$ac_exec_ext"; then
+    ac_cv_path_XMLCATALOG="$as_dir$ac_word$ac_exec_ext"
+    printf "%s\n" "$as_me:${as_lineno-$LINENO}: found $as_dir$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  ;;
+esac ;;
+esac
+fi
+XMLCATALOG=$ac_cv_path_XMLCATALOG
+if test -n "$XMLCATALOG"; then
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $XMLCATALOG" >&5
+printf "%s\n" "$XMLCATALOG" >&6; }
+else
+  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+printf "%s\n" "no" >&6; }
+fi
+
+
+if test -z "$XMLCATALOG"; then
+   as_fn_error $? "xmlcatalog not found. Please install xml-core package." "$LINENO" 5
+fi
+
+if test -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for DocBook XSL stylesheets" >&5
+printf %s "checking for DocBook XSL stylesheets... " >&6; }
+    DOCBOOK_XSL_PATH=$($XMLCATALOG /etc/xml/catalog \
+      "http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl" 2>/dev/null | \
+      grep -v "No entry" | head -1)
+
+    if test -z "$DOCBOOK_XSL_PATH"; then
+        # Fallback to common paths
+        for file in /usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml/docbook.xsl \
+                    /usr/share/sgml/docbook/xsl-ns-stylesheets/docbook.xsl \
+                    /usr/share/sgml/docbook/xsl-stylesheets/dockbook.xsl; do
+            if test -f "$file"; then
+                DOCBOOK_XSL_PATH="$dir"
+                break
+            fi
+        done
+    fi
+
+    if test -n "$DOCBOOK_XSL_PATH"; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $DOCBOOK_XSL_PATH" >&5
+printf "%s\n" "$DOCBOOK_XSL_PATH" >&6; }
+
+    else
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: DocBook XSL stylesheets not found" >&5
+printf "%s\n" "$as_me: WARNING: DocBook XSL stylesheets not found" >&2;}
+    fi
 fi
 
 cat >confcache <<\_ACEOF
