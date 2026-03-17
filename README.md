@@ -21,6 +21,7 @@ On Debian you need to install the following packages:
 
 ```
 xsltproc 
+libxml2-utils (for xmlcatalog)
 docbook-xml 
 docbook-xsl 
 docbook-xsl-ns 

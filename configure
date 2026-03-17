@@ -798,6 +798,7 @@ with_aix_soname
 with_gnu_ld
 with_sysroot
 enable_libtool_lock
+with_docbook_xsl
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1458,6 +1459,8 @@ Optional Packages:
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
                           compiler's sysroot if not specified).
+  --with-docbook-xsl=PATH path to DocBook XSL stylesheet (overrides
+                          auto-detection)
 
 Some influential environment variables:
   CC          C compiler command
@@ -14191,7 +14194,18 @@ if test -z "$XMLCATALOG"; then
    as_fn_error $? "xmlcatalog not found. Please install xml-core package." "$LINENO" 5
 fi
 
-if test -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
+
+# Check whether --with-docbook-xsl was given.
+if test ${with_docbook_xsl+y}
+then :
+  withval=$with_docbook_xsl; DOCBOOK_XSL_PATH="$withval"
+else case e in #(
+  e) DOCBOOK_XSL_PATH="" ;;
+esac
+fi
+
+
+if test -z "$DOCBOOK_XSL_PATH" -a -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for DocBook XSL stylesheets" >&5
 printf %s "checking for DocBook XSL stylesheets... " >&6; }
     DOCBOOK_XSL_PATH=$($XMLCATALOG /etc/xml/catalog \
@@ -14202,9 +14216,9 @@ printf %s "checking for DocBook XSL stylesheets... " >&6; }
         # Fallback to common paths
         for file in /usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml/docbook.xsl \
                     /usr/share/sgml/docbook/xsl-ns-stylesheets/docbook.xsl \
-                    /usr/share/sgml/docbook/xsl-stylesheets/dockbook.xsl; do
+                    /usr/share/sgml/docbook/xsl-stylesheets/docbook.xsl; do
             if test -f "$file"; then
-                DOCBOOK_XSL_PATH="$dir"
+                DOCBOOK_XSL_PATH="$file"
                 break
             fi
         done

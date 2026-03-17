@@ -132,24 +132,30 @@ if test -z "$XMLCATALOG"; then
    AC_MSG_ERROR([xmlcatalog not found. Please install xml-core package.])
 fi
 
-if test -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
+AC_ARG_WITH([docbook-xsl],
+    [AS_HELP_STRING([--with-docbook-xsl=PATH],
+        [path to DocBook XSL stylesheet (overrides auto-detection)])],
+    [DOCBOOK_XSL_PATH="$withval"],
+    [DOCBOOK_XSL_PATH=""])
+
+if test -z "$DOCBOOK_XSL_PATH" -a -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
     AC_MSG_CHECKING([for DocBook XSL stylesheets])
     DOCBOOK_XSL_PATH=$($XMLCATALOG /etc/xml/catalog \
       "http://docbook.sourceforge.net/release/xsl/current/xhtml/docbook.xsl" 2>/dev/null | \
       grep -v "No entry" | head -1)
-    
+
     if test -z "$DOCBOOK_XSL_PATH"; then
         # Fallback to common paths
         for file in /usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml/docbook.xsl \
                     /usr/share/sgml/docbook/xsl-ns-stylesheets/docbook.xsl \
-                    /usr/share/sgml/docbook/xsl-stylesheets/dockbook.xsl; do
+                    /usr/share/sgml/docbook/xsl-stylesheets/docbook.xsl; do
             if test -f "$file"; then
-                DOCBOOK_XSL_PATH="$dir"
+                DOCBOOK_XSL_PATH="$file"
                 break
             fi
         done
     fi
-    
+
     if test -n "$DOCBOOK_XSL_PATH"; then
         AC_MSG_RESULT([$DOCBOOK_XSL_PATH])
         AC_SUBST([DOCBOOK_XSL_PATH])
