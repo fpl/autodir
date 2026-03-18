@@ -264,6 +264,9 @@ LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+LT_AGE = @LT_AGE@
+LT_CURRENT = @LT_CURRENT@
+LT_REVISION = @LT_REVISION@
 LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
@@ -349,11 +352,11 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 pkglib_LTLIBRARIES = autohome.la autogroup.la automisc.la
 autohome_la_SOURCES = autohome.c
-autohome_la_LDFLAGS = -module -version-info 1001:2 -shrext .so
+autohome_la_LDFLAGS = -module -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -shrext .so
 autogroup_la_SOURCES = autogroup.c
-autogroup_la_LDFLAGS = -module -version-info 1001:2 -shrext .so
+autogroup_la_LDFLAGS = -module -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -shrext .so
 automisc_la_SOURCES = automisc.c
-automisc_la_LDFLAGS = -module -version-info 1001:2 -shrext .so
+automisc_la_LDFLAGS = -module -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -shrext .so
 all: all-am
 
 .SUFFIXES:

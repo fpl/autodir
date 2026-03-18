@@ -1,12 +1,20 @@
+2026-03-17 Francesco Paolo Lovergine <frankie@debian.org>
+
+* Reset of libtool versioning, it is only for internal use anyway.
+* Introduced --with-docbook-xsl for by-passing autodection of DobBook stylesheet.
+
 2026-03-11 Francesco Paolo Lovergine <frankie@debian.org>
+
+* Added rule to autogen HTML page from Docbook XML.
+* The dist/ subdir renamed in packaging, it triggered a curious loop at make dist time.
+* Both xlstproc and pod2man are now checked before use.
+* A better combination of lazy umount and out-of-signal-handler operations is now adopted.
+
+2025-06-04 Francesco Paolo Lovergine <frankie@debian.org>
 
 * Now using getopt_long() from GNU LIBC instead of the traditional getopt().
 * Updated POD file to integrate the long options.
 * Updated for autoconf 2.72 and automake 1.17.
-* Added rule to autogen HTML page from Docbook XML.
-* The dist/ subdir renamed in packaging, it triggered a curious loop at make dist time.
-* Both xlstproc and pod2man are now checked before use.
-* A better compbination of lazy umount and out-of-signal-handler operations is now adopted.
 
 2023-12-28 Francesco Paolo Lovergine <frankie@debian.org>
 

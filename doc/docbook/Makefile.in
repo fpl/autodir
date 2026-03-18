@@ -200,6 +200,9 @@ LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+LT_AGE = @LT_AGE@
+LT_CURRENT = @LT_CURRENT@
+LT_REVISION = @LT_REVISION@
 LT_SYS_LIBRARY_PATH = @LT_SYS_LIBRARY_PATH@
 MAKEINFO = @MAKEINFO@
 MANIFEST_TOOL = @MANIFEST_TOOL@
@@ -506,10 +509,15 @@ uninstall-am: uninstall-dist_docDATA
 
 
 Autodir-HOWTO.html: Autodir-HOWTO.xml
-	$(XSLTPROC) --nonet \
-	    --param section.autolabel 1 \
-    	--param section.label.includes.component.label 1 \
-	-o $@ $(DOCBOOK_XSL_PATH) $<
+	@if test -n "$(DOCBOOK_XSL_PATH)"; then \
+		echo "Generating $@ via xsltproc"; \
+		$(XSLTPROC) --nonet \
+			--param section.autolabel 1 \
+			--param section.label.includes.component.label 1 \
+		-o $@ $(DOCBOOK_XSL_PATH) $<; \
+	else \
+		echo "Skipping $@ documentation generation"; \
+	fi
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

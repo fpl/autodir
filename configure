@@ -657,6 +657,9 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+LT_AGE
+LT_REVISION
+LT_CURRENT
 DOCBOOK_XSL_PATH
 XMLCATALOG
 POD2MAN
@@ -14198,7 +14201,18 @@ fi
 # Check whether --with-docbook-xsl was given.
 if test ${with_docbook_xsl+y}
 then :
-  withval=$with_docbook_xsl; DOCBOOK_XSL_PATH="$withval"
+  withval=$with_docbook_xsl;
+     DOCBOOK_XSL_PATH="$withval"
+     if test -f "$DOCBOOK_XSL_PATH"; then
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: DocBook XSL stylesheet is $DOCBOOK_XSL_PATH" >&5
+printf "%s\n" "DocBook XSL stylesheet is $DOCBOOK_XSL_PATH" >&6; }
+
+     else
+        DOCBOOK_XSL_PATH=""
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: DocBook XSL stylesheet not found" >&5
+printf "%s\n" "$as_me: WARNING: DocBook XSL stylesheet not found" >&2;}
+     fi
+
 else case e in #(
   e) DOCBOOK_XSL_PATH="" ;;
 esac
@@ -14229,10 +14243,28 @@ printf %s "checking for DocBook XSL stylesheets... " >&6; }
 printf "%s\n" "$DOCBOOK_XSL_PATH" >&6; }
 
     else
-        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: DocBook XSL stylesheets not found" >&5
-printf "%s\n" "$as_me: WARNING: DocBook XSL stylesheets not found" >&2;}
+        { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: DocBook XSL stylesheet not found" >&5
+printf "%s\n" "$as_me: WARNING: DocBook XSL stylesheet not found" >&2;}
     fi
 fi
+
+if test -z "$DOCBOOK_XSL_PATH"; then
+    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: WARNING: DocBook XSL stylesheet not found" >&5
+printf "%s\n" "$as_me: WARNING: DocBook XSL stylesheet not found" >&2;}
+fi
+
+# Library code modified:              REVISION++
+# Interfaces changed/added/removed:   CURRENT++ REVISION=0
+# Interfaces added:                   AGE++
+# Interfaces removed:                 AGE=0
+LT_CURRENT=1
+LT_REVISION=0
+LT_AGE=0
+
+
+
+
+
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure

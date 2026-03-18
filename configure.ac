@@ -135,7 +135,16 @@ fi
 AC_ARG_WITH([docbook-xsl],
     [AS_HELP_STRING([--with-docbook-xsl=PATH],
         [path to DocBook XSL stylesheet (overrides auto-detection)])],
-    [DOCBOOK_XSL_PATH="$withval"],
+    [
+     DOCBOOK_XSL_PATH="$withval"
+     if test -f "$DOCBOOK_XSL_PATH"; then
+        AC_MSG_RESULT([DocBook XSL stylesheet is $DOCBOOK_XSL_PATH])
+        AC_SUBST([DOCBOOK_XSL_PATH])
+     else
+        DOCBOOK_XSL_PATH=""
+        AC_MSG_WARN([DocBook XSL stylesheet not found])
+     fi
+    ],
     [DOCBOOK_XSL_PATH=""])
 
 if test -z "$DOCBOOK_XSL_PATH" -a -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
@@ -160,8 +169,25 @@ if test -z "$DOCBOOK_XSL_PATH" -a -n "$XMLCATALOG" -a -f /etc/xml/catalog; then
         AC_MSG_RESULT([$DOCBOOK_XSL_PATH])
         AC_SUBST([DOCBOOK_XSL_PATH])
     else
-        AC_MSG_WARN([DocBook XSL stylesheets not found])
+        AC_MSG_WARN([DocBook XSL stylesheet not found])
     fi
 fi
+
+if test -z "$DOCBOOK_XSL_PATH"; then
+    AC_MSG_WARN([DocBook XSL stylesheet not found])
+fi
+
+# Library code modified:              REVISION++
+# Interfaces changed/added/removed:   CURRENT++ REVISION=0
+# Interfaces added:                   AGE++
+# Interfaces removed:                 AGE=0
+LT_CURRENT=1
+LT_REVISION=0
+LT_AGE=0
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+LT_INIT
 
 AC_OUTPUT
